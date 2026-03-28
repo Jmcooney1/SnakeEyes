@@ -12,14 +12,27 @@ export default function CreateScreen() {
   const [selectedBackgroundColor, setSelectedBackgroundColor] = useState('#ffffff');
   const [selectedReadingSpeed, setSelectedReadingSpeed] = useState('200');
 
+  const handleFileUpload = () => {
+    // Handle file upload logic here
+    console.log('File upload button pressed');
+  }
+  const handleTextInput = () => {
+    // Handle text input logic here
+    console.log('Text input button pressed');
+  }
+  const handleSubmit = () => {
+    // Handle form submission logic here
+    console.log('Submit button pressed');
+  }
+  
   return (
     <>
     <View style={styles.titleContainer}>
       <View style={styles.stepContainer}>
         <Text style={styles.titleProperties}>Create a new post</Text>
         <View style={styles.ButtonProperties}>
-          <Button title="Upload File" color="green" onPress={() => {}} />
-          <Button title="Paste to text box" color="green" onPress={() => {}} />
+          <Button title="Upload File" color="green" onPress={() => {handleFileUpload()}} />
+          <Button title="Paste to text box" color="green" onPress={() => {handleTextInput()}} />
         </View>
         <View style={styles.createrContainer}>
           <Text style={styles.headerProperties}>Creator information</Text>
@@ -109,7 +122,7 @@ export default function CreateScreen() {
           </View>
         </View>
         <View style={styles.ButtonProperties}>
-          <Button title="Submit" color="green" onPress={() => {}} />
+          <Button title="Submit" color="green" onPress={() => {handleSubmit()}} />
         </View>
       </View>
     </View>
