@@ -1,6 +1,9 @@
 import { Picker } from '@react-native-picker/picker';
+import { router } from 'expo-router';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+//import { Colors, Fonts } from 'snakeeyes/constants/theme';
+
 
 
 
@@ -20,14 +23,12 @@ export default function CreateScreen() {
     // Handle text input logic here
     console.log('Text input button pressed');
   }
-  const handleSubmit = () => {
-    // Handle form submission logic here
-    console.log('Submit button pressed');
-  }
   
   return (
     <>
+
     <View style={styles.titleContainer}>
+      <ScrollView contentContainerStyle={styles.stepContainer}>
       <View style={styles.stepContainer}>
         <Text style={styles.titleProperties}>Create a new post</Text>
         <View style={styles.ButtonProperties}>
@@ -44,6 +45,14 @@ export default function CreateScreen() {
           <View style={styles.infoContainer}>
             <Text style={styles.ColorProperties}>File Title: </Text>
             <TextInput style={styles.ColorProperties} placeholder="Enter file title" />
+          </View>
+          <View style={styles.infoContainer}>
+            <Text style={styles.ColorProperties}>Description: </Text>
+            <TextInput style={styles.ColorProperties} placeholder="Enter file description" />
+          </View>
+          <View style={styles.infoContainer}>
+            <Text style={styles.ColorProperties}>Publish Date: </Text>
+            <TextInput style={styles.ColorProperties} placeholder="Enter in the date" />
           </View>
         </View>
         <View style={styles.uploaderContainer}>
@@ -122,9 +131,10 @@ export default function CreateScreen() {
           </View>
         </View>
         <View style={styles.ButtonProperties}>
-          <Button title="Submit" color="green" onPress={() => {handleSubmit()}} />
+           <Button title="Submit" color="green" onPress={() => {router.push('/speed_reading_file')}}/>
         </View>
       </View>
+      </ScrollView>
     </View>
     </>
   );
@@ -138,7 +148,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   stepContainer: {
-    gap: 10,
+    gap: 8,
     marginBottom: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -148,8 +158,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap:10,
-    marginBottom: 8,
-    marginTop: 40,
+    marginTop: 30,
   },
   infoContainer:{
     flexDirection: 'row',
