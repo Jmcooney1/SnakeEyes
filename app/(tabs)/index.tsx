@@ -23,8 +23,8 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container}>
 
-      <View>
-        <Button title="Go to Sign Up" onPress={() => router.push('/sign_up')} />
+      <View style={{ marginBottom: 20 }}>
+        <Button title="Go to Login" onPress={() => router.push('/sign_up')} />
       </View>
 
       {/* Search Bar */}

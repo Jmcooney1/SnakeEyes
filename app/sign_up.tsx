@@ -5,7 +5,7 @@ export default function SignIn() {
     return (
         <View style={styles.container}>
         <View style={ styles.titlecontainer }>
-            <Text>Sign Up</Text>
+            <Text>Login to your account</Text>
         </View>
         <View style={styles.formContainer}>
             <Text>Username:</Text>
