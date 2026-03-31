@@ -30,7 +30,7 @@ export default function SignUp() {
                 />
         </View>
 
-            <Button title="Have an account? Log In" onPress={() => router.push('/Create_Account')}/>
+            <Button title="Have an account? Log In" onPress={() => router.push('/sign_up')}/>
             <Button title="Create Account" onPress={() => {router.push('/')}}/>
                 
         </View>
