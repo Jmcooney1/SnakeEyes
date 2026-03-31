@@ -26,7 +26,7 @@ export default function HomeScreen() {
       <View>
         <Button title="Go to Sign Up" onPress={() => router.push('/sign_up')} />
       </View>
-      
+
       {/* Search Bar */}
       <View style={styles.searchContainer}>
         <Text style={styles.searchIcon}>🔍</Text>
