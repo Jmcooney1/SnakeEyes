@@ -1,110 +1,55 @@
-import { router } from 'expo-router';
-import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { FilePreview } from '@/components/file-preview';
+import { SearchBar } from '@/components/search-bar';
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import { Button, StyleSheet, Text, View, ScrollView, Modal } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import ModalScreen from '../modal';
 
-const RECENT_FILES = [
-  {
-    id: '1',
-    preview: 'Blah,blah,blah...',
-    fileName: 'File Name',
-  },
-  {
-    id: '2',
-    preview: 'blah, la, la.',
-    fileName: 'File Name',
-  },
-  {
-    id: '3',
-    preview: 'blah,blah la la la la .',
-    fileName: 'File Name',
-  },
-];
+const router = useRouter()
+function handlePress(){ router.push("/settings"); }
 
-export default function HomeScreen() {
-  return (
-    <ScrollView style={styles.container}>
+export default function HomeScreen() {  
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [recents, setFiles] = useState(["file1", "file2", "file3", "file4", "file5", "file6"]);
 
-      <View style={{ marginBottom: 20 }}>
-        <Button title="Go to Login" onPress={() => router.push('/sign_up')} />
-      </View>
-
-      {/* Search Bar */}
-      <View style={styles.searchContainer}>
-        <Text style={styles.searchIcon}>🔍</Text>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search for a file..."
-          placeholderTextColor="#999"
-        />
-      </View>
-
-      {/* Recents Section */}
-      <Text style={styles.sectionTitle}>Recents</Text>
-
-      {/* List of recent files */}
-      {RECENT_FILES.map((file) => (
-        <View key={file.id} style={styles.fileCard}>
-          <Text style={styles.filePreview}>{file.preview}</Text>
-          <View style={styles.fileNameTag}>
-            <Text style={styles.fileName}>{file.fileName}</Text>
-          </View>
+  if(loggedIn)
+    return (
+        <SafeAreaProvider> <SafeAreaView style={{ flex: 1, marginLeft: 20 }} edges={['top']}>
+          <View style={{height: 100, pointerEvents: "none"}} />
+          <Text style={styles.title}> Recents </Text>
+          <ScrollView>
+            { recents.map((element, idx) => { return(<FilePreview key={`${element}-${idx}`} title={element} author="author" date="date" user="user" />); })}
+            <Text style={{color: "white", fontSize: 20, marginLeft: 50}}> ...that's all she wrote!</Text>
+          </ScrollView>
+          <SearchBar />
+        </SafeAreaView> </SafeAreaProvider>
+    );
+  else
+    return(
+      <SafeAreaProvider><SafeAreaView style={{height: "100%"}}>
+        <View style={{height: 100, pointerEvents: "none"}} />
+        <View style={styles.loggedOutContainer}>
+          <Text style={styles.title}> You're not logged in </Text>
+          <Button title="Sign in" onPress={handlePress} />
         </View>
-      ))}
-
-    </ScrollView>
-  );
+        <SearchBar />
+      </SafeAreaView></SafeAreaProvider>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 16,
-    paddingTop: 60,
+  loggedOutContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: "90%",
   },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-    borderRadius: 25,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    marginBottom: 24,
-  },
-  searchIcon: {
-    marginRight: 8,
-    fontSize: 16,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
-    color: '#333',
-  },
-  sectionTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    color: '#333',
-  },
-  fileCard: {
-    backgroundColor: '#f5f5f5',
-    borderRadius: 8,
+  text: {
+    fontSize: 42,
     padding: 12,
-    marginBottom: 16,
   },
-  filePreview: {
-    fontSize: 14,
-    color: '#555',
-    marginBottom: 8,
-  },
-  fileNameTag: {
-    backgroundColor: '#e0e0e0',
-    borderRadius: 4,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    alignSelf: 'flex-start',
-  },
-  fileName: {
-    fontSize: 13,
-    color: '#333',
+  title: {
+    color: "white",
+    fontSize: 40,
   },
 });
