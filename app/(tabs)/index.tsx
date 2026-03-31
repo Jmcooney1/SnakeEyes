@@ -1,4 +1,5 @@
-import { StyleSheet, View, Text, TextInput, ScrollView } from 'react-native';
+import { router } from 'expo-router';
+import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 const RECENT_FILES = [
   {
@@ -22,6 +23,10 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container}>
 
+      <View>
+        <Button title="Go to Sign Up" onPress={() => router.push('/sign_up')} />
+      </View>
+      
       {/* Search Bar */}
       <View style={styles.searchContainer}>
         <Text style={styles.searchIcon}>🔍</Text>
