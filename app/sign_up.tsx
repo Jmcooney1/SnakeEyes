@@ -22,7 +22,7 @@ export default function SignIn() {
                 secureTextEntry
             />
         </View>
-            <Button title="Don't have an account? Sign Up" /> {/* onPress={() => router.push('/sign_up')} */}
+            {/*<Button title="Don't have an account? Sign Up" onPress = {() => {router.push('create_account')}} /> */}
             <Button title="Log In" onPress={() => {router.push('/')}}/>
 
         </View>
