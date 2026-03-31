@@ -47,6 +47,8 @@ export default function SpeedReadingPage() {
         stepContainer: {
             gap: 8,
             marginBottom: 8,
+            alignItems: 'center',
+            justifyContent: 'center',
         },
         titleProperties: {
             fontSize: 40,
@@ -77,7 +79,7 @@ export default function SpeedReadingPage() {
        box: {
             width: 300,
             height: 200,
-            backgroundColor: '#fff',
+            backgroundColor: '#f0f0f0',
             borderRadius: 8,
             borderWidth: 1,
             borderColor: '#000',
