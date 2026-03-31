@@ -21,13 +21,12 @@ export default function SpeedReadingPage() {
     return (
     <View style={styles.titleContainer}>
         <View style={styles.stepContainer}>
-            <Text style={styles.titleProperties}>Speed Reading Page</Text>
-            <Text style={styles.ColorProperties}>Here you can read your file at your desired reading speed!</Text>
+            <ThemedText style={styles.titleProperties}>Speed Reading Page</ThemedText>
             <View style={styles.infoContainer}>
-            <Text style={styles.ColorProperties}> File Name</Text>
-            <Text style={styles.ColorProperties}> File Description</Text>
-            <Text style={styles.ColorProperties}> Publish Date</Text>
-            <Text style={styles.ColorProperties}> Creator Name</Text>
+            <ThemedText> File Name</ThemedText>
+            <ThemedText> File Description</ThemedText>
+            <ThemedText> Publish Date</ThemedText>
+            <ThemedText> Creator Name</ThemedText>
             </View>
             <View style={styles.createrContainer}>
                 <ThemedView style={styles.box}>
@@ -49,6 +48,7 @@ export default function SpeedReadingPage() {
             alignItems: 'center',
             justifyContent: 'center',
             gap: 8,
+            marginTop: 30,
         },
         stepContainer: {
             gap: 8,
@@ -59,7 +59,6 @@ export default function SpeedReadingPage() {
         titleProperties: {
             fontSize: 40,
             fontWeight: 'bold',
-            color: 'white',
         },
         createrContainer:{
             flexDirection: 'column',
@@ -76,10 +75,6 @@ export default function SpeedReadingPage() {
             justifyContent: 'center',
             gap:10,
             marginBottom: 8,
-        },
-
-        ColorProperties:{
-            color: 'white',
         },
 
        box: {
