@@ -2,16 +2,20 @@ import { FilePreview } from '@/components/file-preview';
 import { SearchBar } from '@/components/search-bar';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, View, ScrollView, Modal } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import ModalScreen from '../modal';
 
 const router = useRouter()
-function handlePress(){ router.push("/settings"); }
+
 
 export default function HomeScreen() {  
   const [loggedIn, setLoggedIn] = useState(true);
   const [recents, setFiles] = useState(["file1", "file2", "file3", "file4", "file5", "file6"]);
+
+  function handlePress(){ 
+    router.push("/sign_up");
+    // setLoggedIn(true);
+  }
 
   if(loggedIn)
     return (
