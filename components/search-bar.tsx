@@ -3,8 +3,12 @@ import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
 import { Search } from "./search";
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Colors } from '@/constants/theme';
 
 export function SearchBar() {
+    const colorScheme = useColorScheme() ?? 'light';
+    const colors = Colors[colorScheme];
     const [isOpen, setIsOpen] = useState(false);
     const [searchVal, setSearchVal] = useState("");
     const inputRef = useRef(null);
@@ -28,16 +32,17 @@ export function SearchBar() {
         setIsOpen(false);
         inputRef.current.blur();
         inputRef.current.clear();
+        setSearchVal("");
     }
 
     if (Platform.OS == 'web')
         return (
-            <View style={stylesWeb.container}>
+            <View style={[stylesWeb.container, { backgroundColor: colors.background }]}>
                 <View style={stylesWeb.barContain}>
-                    <MaterialIcons size={28} name={isOpen ? "clear" : "search"} color="lightgray" style={{marginLeft: 20}}/>
+                    <MaterialIcons size={28} name={isOpen ? "clear" : "search"} color="lightgray" style={{marginLeft: 20, color: colors.icon}}/>
                     <Pressable style={stylesWeb.button} onPress={handlePress} />
                     {isOpen && <Pressable style={stylesWeb.exit} onPress={handlePress} />}
-                    <TextInput ref={inputRef} style={stylesWeb.input} placeholder="Search..."
+                    <TextInput ref={inputRef} style={[stylesMobile.input, { color: colors.text }]} placeholder="Search..."
                         onChangeText={(text) => setSearchVal(text)}
                         onSubmitEditing={handleSubmit}
                     />
@@ -47,11 +52,11 @@ export function SearchBar() {
         );
     else
         return(
-            <View style={isOpen ? stylesMobile.containerOpen : stylesMobile.container}>
+            <View style={[isOpen ? stylesMobile.containerOpen : stylesMobile.container, { backgroundColor: colors.background }]}>
                 <View style={stylesMobile.barContain}>
-                    <MaterialIcons size={28} name={isOpen ? "clear" : "search"} color="lightgray" style={{marginLeft: 20}}/>
+                    <MaterialIcons size={28} name={isOpen ? "clear" : "search"} color="lightgray" style={{marginLeft: 20, color: colors.icon}}/>
                     <Pressable style={stylesMobile.button} onPress={handlePress} />
-                    <TextInput ref={inputRef} style={stylesMobile.input} placeholder="Search..."
+                    <TextInput ref={inputRef} style={[stylesMobile.input, { color: colors.text }]} placeholder="Search..."
                         onChangeText={(text) => setSearchVal(text)}
                         onSubmitEditing={handleSubmit}
                         onFocus={handleFocus}
@@ -66,7 +71,6 @@ export function SearchBar() {
 const stylesWeb = StyleSheet.create({
     container: {
         position: "absolute",
-        backgroundColor: "gray",
         flexDirection: "column",
         justifyContent: "flex-start",
         minWidth: 400,
@@ -120,7 +124,6 @@ const stylesWeb = StyleSheet.create({
 const stylesMobile = StyleSheet.create({
     container: {
         position: "absolute",
-        backgroundColor: "gray",
         flexDirection: "column",
         justifyContent: "flex-start",
         minWidth: 400,
@@ -131,7 +134,6 @@ const stylesMobile = StyleSheet.create({
     },
     containerOpen: {
         position: "absolute",
-        backgroundColor: "gray",
         flexDirection: "column",
         justifyContent: "flex-start",
         width: "120%",

@@ -1,7 +1,8 @@
 import { FilePreview } from "@/components/file-preview";
+import { ThemedText } from "@/components/themed-text";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 
 const router = useRouter();
 
@@ -11,10 +12,10 @@ export default function SearchResults() {
 
     return(
         <View style={{flex: 1, margin: 20}}>
-            <Text style={{color: "white", fontSize: 30}}> Search results for: "{entry}" </Text>
+            <ThemedText style={{fontSize: 30}}> Search results for: "{entry}" </ThemedText>
             <ScrollView>
                 { recents.map((element, idx) => { return(<FilePreview key={`${element}-${idx}`} title={element} author="author" date="date" user="user" />); })}
-                <Text style={{color: "white", fontSize: 20, marginLeft: 50}}> end of results...</Text>
+                <ThemedText style={{fontSize: 20, marginLeft: 50}}> end of results...</ThemedText>
             </ScrollView>
         </View>
     );
