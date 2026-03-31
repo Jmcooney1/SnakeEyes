@@ -6,8 +6,9 @@ import { Button, StyleSheet, Text, View, ScrollView, Modal } from 'react-native'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import ModalScreen from '../modal';
 
+
 const router = useRouter()
-function handlePress(){ router.push("/settings"); }
+function handlePress(){router.push("/settings"); }
 
 export default function HomeScreen() {  
   const [loggedIn, setLoggedIn] = useState(true);
