@@ -1,29 +1,55 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-import { Link } from 'expo-router';
+import { FilePreview } from '@/components/file-preview';
+import { SearchBar } from '@/components/search-bar';
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import { Button, StyleSheet, Text, View, ScrollView, Modal } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import ModalScreen from '../modal';
 
-export default function HomeScreen() {
-  return (
-    <>
-    </>
-  );
+const router = useRouter()
+function handlePress(){ router.push("/settings"); }
+
+export default function HomeScreen() {  
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [recents, setFiles] = useState(["file1", "file2", "file3", "file4", "file5", "file6"]);
+
+  if(loggedIn)
+    return (
+        <SafeAreaProvider> <SafeAreaView style={{ flex: 1, marginLeft: 20 }} edges={['top']}>
+          <View style={{height: 100, pointerEvents: "none"}} />
+          <Text style={styles.title}> Recents </Text>
+          <ScrollView>
+            { recents.map((element, idx) => { return(<FilePreview key={`${element}-${idx}`} title={element} author="author" date="date" user="user" />); })}
+            <Text style={{color: "white", fontSize: 20, marginLeft: 50}}> ...that's all she wrote!</Text>
+          </ScrollView>
+          <SearchBar />
+        </SafeAreaView> </SafeAreaProvider>
+    );
+  else
+    return(
+      <SafeAreaProvider><SafeAreaView style={{height: "100%"}}>
+        <View style={{height: 100, pointerEvents: "none"}} />
+        <View style={styles.loggedOutContainer}>
+          <Text style={styles.title}> You're not logged in </Text>
+          <Button title="Sign in" onPress={handlePress} />
+        </View>
+        <SearchBar />
+      </SafeAreaView></SafeAreaProvider>
+    );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  loggedOutContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: "90%",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  text: {
+    fontSize: 42,
+    padding: 12,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  title: {
+    color: "white",
+    fontSize: 40,
   },
 });
