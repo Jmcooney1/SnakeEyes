@@ -1,38 +1,43 @@
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
 import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-const Box = ({ children } : { children: React.ReactNode }) => {
-  return (
-      <View style={styles.box}>{children} </View>
-  );
-};
-
 export default function SpeedReadingPage() {
+    //sample text for now; will replace with actual file content once backend is set up
+    const reading:string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    const words:string[] = (reading.trim().split(" "));
+    const [currIndex, setCurrIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrIndex(prev => (prev + 1)%words.length);
+        }, 300 + words[currIndex].length * 10 + (words[currIndex].length > 8 ? 100 : 0)); //base time + extra time based on word length
+        console.log(currIndex);
+        return () => clearInterval(timer);
+    }, [words.length]);
+
     return (
-        <>
-        <View style={styles.titleContainer}>
+    <View style={styles.titleContainer}>
         <View style={styles.stepContainer}>
-            <Text style={styles.titleProperties}>Speed Reading Page</Text>
-            <Text style={styles.ColorProperties}>Here you can read your file at your desired reading speed!</Text>
+            <ThemedText style={styles.titleProperties}>Speed Reading Page</ThemedText>
             <View style={styles.infoContainer}>
-            <Text style={styles.ColorProperties}> File Name</Text>
-            <Text style={styles.ColorProperties}> File Description</Text>
-            <Text style={styles.ColorProperties}> Publish Date</Text>
-            <Text style={styles.ColorProperties}> Creator Name</Text>
+            <ThemedText> File Name</ThemedText>
+            <ThemedText> File Description</ThemedText>
+            <ThemedText> Publish Date</ThemedText>
+            <ThemedText> Creator Name</ThemedText>
             </View>
             <View style={styles.createrContainer}>
-                <Text style={styles.ColorProperties}>Where the screen will be</Text>
-                <Box>
-                    <Text>Preview of file goes here...</Text>
-                </Box>
+                <ThemedView style={styles.box}>
+                    <ThemedText>{words[currIndex]}</ThemedText>
+                </ThemedView>
             </View>
             <View style={styles.ButtonProperties}>
-                <Button title="Go back to create page" color="green" onPress={() => {router.push('/(tabs)/create')}}/>
-                <Button title="Go back to home page" color="green" onPress={() => {router.push('/')}}/>
-             </View>
+                <Button title="HOME" color="green" onPress={() => {router.push('/')}}/>
+            </View>
         </View>
     </View>
-    </>
     );
 }
 
@@ -43,6 +48,7 @@ export default function SpeedReadingPage() {
             alignItems: 'center',
             justifyContent: 'center',
             gap: 8,
+            marginTop: 30,
         },
         stepContainer: {
             gap: 8,
@@ -53,7 +59,6 @@ export default function SpeedReadingPage() {
         titleProperties: {
             fontSize: 40,
             fontWeight: 'bold',
-            color: 'white',
         },
         createrContainer:{
             flexDirection: 'column',
@@ -72,19 +77,15 @@ export default function SpeedReadingPage() {
             marginBottom: 8,
         },
 
-        ColorProperties:{
-            color: 'white',
-        },
-
        box: {
             width: 300,
             height: 200,
-            backgroundColor: '#f0f0f0',
             borderRadius: 8,
             borderWidth: 1,
-            borderColor: '#000',
             padding: 16,
             margin: 16,
+            alignItems: 'center',
+            justifyContent: 'center',
         },
         ButtonProperties:{
             flexDirection: 'column',

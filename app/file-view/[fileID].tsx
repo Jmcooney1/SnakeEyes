@@ -17,7 +17,7 @@ export default function FileView() {
             <ThemedText> Date: {info.date} </ThemedText>
             <ThemedText> Uploader: {info.user} </ThemedText>
             <ThemedText> [ further info... ] </ThemedText>
-            <Button title="Read" onPress={() => {}} /> 
+            <Button title="Read" onPress={() => {router.push(`/speed_reading_file`)}} /> 
         </View>
     );
 }

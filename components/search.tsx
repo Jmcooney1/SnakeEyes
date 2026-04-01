@@ -1,10 +1,15 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
+import { ThemedText } from "./themed-text";
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export function Search(props: {searchVal: string}){
     const router = useRouter();
     const [list, setList] = useState(["entry1", "entry2", "entry3", "entry4"]);
+    const colorScheme = useColorScheme() ?? 'light';
+    const colors = Colors[colorScheme];
 
     function handlePress(searchEntry: string){
         if(!searchEntry) return;
@@ -16,14 +21,14 @@ export function Search(props: {searchVal: string}){
     return(
         <View style={styles.container}>
             <View style={styles.divider}/>
-            <Pressable style={({pressed}) => [styles.entries, pressed && styles.entryPressed]} onPress={() => handlePress(props.searchVal)}>
-                <Text style={styles.entryText}>{(props.searchVal)? props.searchVal : "Search..."}</Text>
+            <Pressable style={({pressed}) => [styles.entries, pressed && {backgroundColor: colors.text}]} onPress={() => handlePress(props.searchVal)}>
+                <ThemedText style={styles.entryText}>{(props.searchVal)? props.searchVal : "Search..."}</ThemedText>
             </Pressable>
             {list.map((element, idx) => {
                 if((props.searchVal))
                     return( 
-                        <Pressable key={`${element}-${idx}`} style={({pressed}) => [styles.entries, pressed && styles.entryPressed]} onPress={() => handlePress(element)}>
-                            <Text style={styles.entryText}>{element}</Text>
+                        <Pressable key={`${element}-${idx}`} style={({pressed}) => [styles.entries, pressed && {backgroundColor: colors.tabIconDefault}]} onPress={() => handlePress(element)}>
+                            <ThemedText style={styles.entryText}>{element}</ThemedText>
                         </Pressable>
                     );
             })}
@@ -46,16 +51,11 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     entryText: {
-        color: "white",
         textAlign: "left",
-    },
-    entryPressed: {
-        backgroundColor: "gray",
     },
     divider: {
         width: "100%",
         height: 1,
-        backgroundColor: "white",
         marginBottom: 8,
     },
 });

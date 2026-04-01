@@ -1,27 +1,32 @@
 import { FilePreview } from '@/components/file-preview';
 import { SearchBar } from '@/components/search-bar';
+import { ThemedText } from '@/components/themed-text';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, View, ScrollView, Modal } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import ModalScreen from '../modal';
 
 
 const router = useRouter()
-function handlePress(){router.push("/settings"); }
+
 
 export default function HomeScreen() {  
   const [loggedIn, setLoggedIn] = useState(true);
   const [recents, setFiles] = useState(["file1", "file2", "file3", "file4", "file5", "file6"]);
 
+  function handlePress(){ 
+    router.push("/sign_up");
+    // setLoggedIn(true);
+  }
+
   if(loggedIn)
     return (
         <SafeAreaProvider> <SafeAreaView style={{ flex: 1, marginLeft: 20 }} edges={['top']}>
           <View style={{height: 100, pointerEvents: "none"}} />
-          <Text style={styles.title}> Recents </Text>
+          <ThemedText style={styles.title}> Recents </ThemedText>
           <ScrollView>
             { recents.map((element, idx) => { return(<FilePreview key={`${element}-${idx}`} title={element} author="author" date="date" user="user" />); })}
-            <Text style={{color: "white", fontSize: 20, marginLeft: 50}}> ...that's all she wrote!</Text>
+            <ThemedText style={{fontSize: 20, marginLeft: 50}}> ...that's all she wrote!</ThemedText>
           </ScrollView>
           <SearchBar />
         </SafeAreaView> </SafeAreaProvider>
@@ -31,7 +36,7 @@ export default function HomeScreen() {
       <SafeAreaProvider><SafeAreaView style={{height: "100%"}}>
         <View style={{height: 100, pointerEvents: "none"}} />
         <View style={styles.loggedOutContainer}>
-          <Text style={styles.title}> You're not logged in </Text>
+          <ThemedText style={styles.title}> You're not logged in </ThemedText>
           <Button title="Sign in" onPress={handlePress} />
         </View>
         <SearchBar />
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   title: {
-    color: "white",
     fontSize: 40,
+    marginBottom: 20,
   },
 });
