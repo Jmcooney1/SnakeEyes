@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+
 const router = useRouter()
 
 
