@@ -1,6 +1,8 @@
 import { FilePreview } from '@/components/file-preview';
 import { SearchBar } from '@/components/search-bar';
 import { ThemedText } from '@/components/themed-text';
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -10,9 +12,11 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 const router = useRouter()
 
 
-export default function HomeScreen() {  
-  const [loggedIn, setLoggedIn] = useState(true);
+export default function HomeScreen() {
+  const [loggedIn, setLoggedIn] = useState(true );
   const [recents, setFiles] = useState(["file1", "file2", "file3", "file4", "file5", "file6"]);
+  const colorScheme = useColorScheme() ?? 'light';
+  const colors = Colors[colorScheme];
 
   function handlePress(){ 
     router.push("/sign_up");
@@ -21,10 +25,10 @@ export default function HomeScreen() {
 
   if(loggedIn)
     return (
-        <SafeAreaProvider> <SafeAreaView style={{ flex: 1, marginLeft: 20 }} edges={['top']}>
+        <SafeAreaProvider> <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top']}>
           <View style={{height: 100, pointerEvents: "none"}} />
-          <ThemedText style={styles.title}> Recents </ThemedText>
-          <ScrollView>
+          <ThemedText type='title' style={styles.title}> Recents </ThemedText>
+          <ScrollView style={{marginHorizontal: 20}}>
             { recents.map((element, idx) => { return(<FilePreview key={`${element}-${idx}`} title={element} author="author" date="date" user="user" />); })}
             <ThemedText style={{fontSize: 20, marginLeft: 50}}> ...that's all she wrote!</ThemedText>
           </ScrollView>
@@ -36,7 +40,7 @@ export default function HomeScreen() {
       <SafeAreaProvider><SafeAreaView style={{height: "100%"}}>
         <View style={{height: 100, pointerEvents: "none"}} />
         <View style={styles.loggedOutContainer}>
-          <ThemedText style={styles.title}> You're not logged in </ThemedText>
+          <ThemedText type='title' style={styles.title}> You're not logged in </ThemedText>
           <Button title="Sign in" onPress={handlePress} />
         </View>
         <SearchBar />
@@ -56,6 +60,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 40,
-    marginBottom: 20,
+    margin: 20,
   },
 });

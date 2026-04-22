@@ -3,12 +3,16 @@ import { ThemedView } from '@/components/themed-view';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Colors } from '@/constants/theme';
 
 export default function SpeedReadingPage() {
     //sample text for now; will replace with actual file content once backend is set up
     const reading:string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
     const words:string[] = (reading.trim().split(" "));
     const [currIndex, setCurrIndex] = useState(0);
+    const colorScheme = useColorScheme() ?? 'light';
+    const colors = Colors[colorScheme];
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -34,7 +38,7 @@ export default function SpeedReadingPage() {
                 </ThemedView>
             </View>
             <View style={styles.ButtonProperties}>
-                <Button title="HOME" color="green" onPress={() => {router.push('/')}}/>
+                <Button title="HOME" color={colors.tint} onPress={() => {router.push('/')}}/>
             </View>
         </View>
     </View>

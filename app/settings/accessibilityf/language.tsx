@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Colors, sharedStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
-expo default function LanguageScreen(){
+export default function LanguageScreen(){
     const router = useRouter();
     const colorScheme = useColorScheme() ?? 'light';
     const colors = Colors[colorScheme];
