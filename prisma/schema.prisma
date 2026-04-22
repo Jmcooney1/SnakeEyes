@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  Username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  Posts     Post[] @relation("UserPosts")
+  Recents   Post?  @relation("UserRecent", fields:[postID], references:[id])
+  postID    Int? @unique
+  Setting   Setting? @relation(fields:[settingID], references:[id])
+  settingID Int? @unique
+}
+
+model Post{
+  id                 Int @id @default(autoincrement())
+  Title              String
+  FileDescription    String?
+  PublishDate        DateTime @default(now())
+  author             User @relation("UserPosts", fields:[creatorUsername],references:[Username])
+  creatorUsername    String
+  recentOf           User? @relation("UserRecent")
+  recommendation     Setting? @relation(fields:[settingID],references:[id])
+  settingID          Int? @unique
+}
+
+model Setting{
+  id             Int @id @default(autoincrement())
+  Font           String?
+  Size           Int?
+  Speed          String?
+  TextColor      String?
+  Highlighter    String?
+
+  User           User?
+  Post           Post?
+}

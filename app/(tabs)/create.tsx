@@ -1,10 +1,10 @@
-import { Picker } from '@react-native-picker/picker';
-import { router } from 'expo-router';
-import { useState } from 'react';
-import { Button, ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import { Colors, sharedStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { Picker } from '@react-native-picker/picker';
+import { router } from 'expo-router';
+import { useState } from 'react';
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function CreateScreen() {
   const colorScheme = useColorScheme() ?? 'light';
