@@ -8,37 +8,66 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  Username  String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  Posts     Post[] @relation("UserPosts")
-  Recents   Post?  @relation("UserRecent", fields:[postID], references:[id])
-  postID    Int? @unique
-  Setting   Setting? @relation(fields:[settingID], references:[id])
-  settingID Int? @unique
+  id              Int               @id @default(autoincrement())
+  username        String            @unique
+  password        String
+  email           String            @unique
+  createdAt       DateTime          @default(now())
+  isModerator     Boolean           @default(false)
+  profilePicture  Int?
+
+  createdFiles    File[]           // one-to-many relationship
+  recentFiles     RecentFile[]           // one-to-many relationship
+  userSetting     UserSetting?
 }
 
-model Post{
-  id                 Int @id @default(autoincrement())
-  Title              String
-  FileDescription    String?
-  PublishDate        DateTime @default(now())
-  author             User @relation("UserPosts", fields:[creatorUsername],references:[Username])
-  creatorUsername    String
-  recentOf           User? @relation("UserRecent")
-  recommendation     Setting? @relation(fields:[settingID],references:[id])
-  settingID          Int? @unique
+model RecentFile {
+  id        Int                     @id @default(autoincrement())
+  user      User                    @relation(fields: [userID], references: [id])
+  userID    Int
+  file      File                    @relation(fields: [fileID], references: [id])
+  fileID    Int                     @unique
+  accessedAt DateTime               @default(now())
 }
 
-model Setting{
-  id             Int @id @default(autoincrement())
-  Font           String?
-  Size           Int?
-  Speed          String?
-  TextColor      String?
-  Highlighter    String?
+model File {
+  id              Int               @id @default(autoincrement())
+  title           String
+  fileDescription String?
+  createdAt       DateTime          @default(now())
+  author          String?
+  publishDate     DateTime?
+  isPublic        Boolean           @default(false)
+  views           Int               @default(0)
+  textContent     String
 
-  User           User?
-  Post           Post?
+  creator         User              @relation(fields: [creatorID], references: [id])
+  creatorID       Int
+  recentFile      RecentFile?
+  fileSetting     FileSetting?
+}
+
+model UserSetting{
+  id              Int               @id @default(autoincrement())
+  owner           User              @relation(fields: [ownerID], references: [id])
+  ownerID         Int               @unique
+  font            String?
+  size            Int?
+  speed           String?
+  textColor       String?
+  highlighter     String?
+  isDarkMode      Boolean?          @default(false)
+  language        String?
+}
+
+model FileSetting{
+  id             Int                @id @default(autoincrement())
+  file           File               @relation(fields: [fileID], references: [id])
+  fileID         Int                @unique
+  font           String?
+  size           Int?
+  speed          String?
+  textColor      String?
+  highlighter    String?
+  isDarkMode     Boolean?          @default(false)
 }

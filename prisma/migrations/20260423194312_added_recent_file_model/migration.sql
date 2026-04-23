@@ -1,0 +1,12 @@
+-- CreateTable
+CREATE TABLE "RecentFile" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "userID" INTEGER NOT NULL,
+    "fileID" INTEGER NOT NULL,
+    "accessedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "RecentFile_userID_fkey" FOREIGN KEY ("userID") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "RecentFile_fileID_fkey" FOREIGN KEY ("fileID") REFERENCES "File" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "RecentFile_fileID_key" ON "RecentFile"("fileID");
