@@ -4,23 +4,27 @@ import { ThemedText } from '@/components/themed-text';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useRouter } from 'expo-router';
-import { useState, useEffect } from 'react';
-import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 
-const router = useRouter()
+const router = useRouter();
 
 
 export default function HomeScreen() {
-  const [loggedIn, setLoggedIn] = useState(true );
+  const [loggedIn, setLoggedIn] = useState(false);
   const [recents, setFiles] = useState(["file1", "file2", "file3", "file4", "file5", "file6"]);
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
 
-  function handlePress(){ 
+  function handlePress_login(){
     router.push("/sign_up");
-    // setLoggedIn(true);
+    //setLoggedIn(true);
+  }
+  function handlePress_signin(){
+    router.push("/create_account");
+    //setLoggedIn(true);
   }
 
   async function fetchUsers() {
@@ -51,7 +55,8 @@ export default function HomeScreen() {
         <View style={{height: 100, pointerEvents: "none"}} />
         <View style={styles.loggedOutContainer}>
           <ThemedText type='title' style={styles.title}> You're not logged in </ThemedText>
-          <Button title="Sign in" onPress={handlePress} />
+          <Button title="Log in" onPress={handlePress_login} />
+          <Button title="Sign up" onPress={handlePress_signin} />
         </View>
         <SearchBar />
       </SafeAreaView></SafeAreaProvider>

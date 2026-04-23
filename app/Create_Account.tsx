@@ -1,38 +1,54 @@
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { router } from 'expo-router';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function SignUp() {
+    const colorScheme = useColorScheme() ?? 'light';
+    const colors = Colors[colorScheme];
     return (
-        <View style={styles.container}>
-        <View style={ styles.titlecontainer }>
-            <Text>Sign Up</Text>
-        </View>
-        <View style={styles.formContainer}>
-            <Text>Username:</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Enter in a username"
-            />
-        </View>
-        <View style={styles.formContainer}>
-            <Text>Password:</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Enter your password"
-                secureTextEntry
-            />
-        </View>
-        <View style={styles.formContainer}>
-            <Text>Confirm Password:</Text>
-            <TextInput
-                style={styles.input}
+        <View style={{backgroundColor: colors.background, flex: 1, alignItems: 'center'}}>
+            <View style={styles.titlecontainer}>
+                <Text style={{ color: colors.text }}>Sign Up</Text>
+            </View>
+            <View style={styles.formContainer}>
+                <Text style={{ color: colors.text }}>Username:</Text>
+                <TextInput
+                    style={[styles.input, { color: colors.text }]}
+                    placeholder="Enter in a username"
+                />
+            </View>
+            <View style={styles.formContainer}>
+                <Text style={{ color: colors.text }}>Password:</Text>
+                <TextInput
+                    style={[styles.input,{color: colors.text}]}
+                    placeholder="Enter your password"
+                    secureTextEntry
+                />
+            </View>
+            <View style={styles.formContainer}>
+                <Text style={{ color: colors.text }}>Confirm Password:</Text>
+                <TextInput
+                style={[styles.input, { color: colors.text }]}
                 placeholder="Confirm your password"
                 />
-        </View>
+            </View>
+            {/* Buttons */}
+            <View style={styles.ButtonContainer}>
+            <TouchableOpacity
+                style={styles.Button}
+                onPress={() => {router.push('/')}}>
+                <Text style={styles.ButtonText}>Create Account</Text>
+            </TouchableOpacity>
+            </View>
 
-            <Button title="Have an account? Log In" onPress={() => router.push('/sign_up')}/>
-            <Button title="Create Account" onPress={() => {router.push('/')}}/>
-                
+            <View style={styles.ButtonContainer}>
+            <TouchableOpacity
+                style={styles.Button}
+                onPress={() => router.push('/sign_up')}>
+                <Text style={styles.ButtonText}>Have an account? Log In</Text>
+            </TouchableOpacity>
+            </View>
         </View>
     );
 }
@@ -57,6 +73,29 @@ formContainer: {
     justifyContent: 'center',
     marginTop: 20,
     marginBottom: 20,
-    }
+    },
+ButtonContainer: {
+    width: '20%',
+    justifyContent: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+    },
+Button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#4CAF50',
+    marginHorizontal: 16,
+    marginBottom: 40,
+    padding: 16,
+    borderRadius: 12,
+    gap: 8,
+  },
+  ButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+
 
 });

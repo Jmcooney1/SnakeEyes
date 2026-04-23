@@ -1,10 +1,15 @@
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { router } from 'expo-router';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
-export default function SignIn() {
+export default function LogIn() {
+    const colorScheme = useColorScheme() ?? 'light';
+    const colors = Colors[colorScheme];
+    
     return (
-        <View style={styles.container}>
-        <View style={ styles.titlecontainer }>
+        <View style={{backgroundColor: colors.background, flex: 1, alignItems: 'center'}}>
+        <View style={ {backgroundColor: colors.background,} }>
             <Text>Login to your account</Text>
         </View>
         <View style={styles.formContainer}>
@@ -22,8 +27,9 @@ export default function SignIn() {
                 secureTextEntry
             />
         </View>
-            {/*<Button title="Don't have an account? Sign Up" onPress = {() => {router.push('create_account')}} /> */}
+            <Button title="Don't have an account? Sign Up" onPress = {() => {router.push('create_account')}} />
             <Button title="Log In" onPress={() => {router.push('/')}}/>
+            
 
         </View>
     );
@@ -31,7 +37,6 @@ export default function SignIn() {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
     },
     titlecontainer: {

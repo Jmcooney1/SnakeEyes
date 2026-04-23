@@ -1,3 +1,4 @@
+//This will remove all existing data from the database. Use with caution.
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
