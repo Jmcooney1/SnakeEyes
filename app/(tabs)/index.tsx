@@ -4,7 +4,7 @@ import { ThemedText } from '@/components/themed-text';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
@@ -22,6 +22,16 @@ export default function HomeScreen() {
     router.push("/sign_up");
     // setLoggedIn(true);
   }
+
+  async function fetchUsers() {
+    const response = await fetch("http://localhost:3000/api/users");
+    const data = await response.json();
+    console.log(data);
+  }
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
 
   if(loggedIn)
     return (

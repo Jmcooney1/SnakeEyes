@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id              Int               @id @default(autoincrement())
+  username        String            @unique
+  password        String
+  email           String            @unique
+  createdAt       DateTime          @default(now())
+  isModerator     Boolean           @default(false)
+  profilePicture  Int?
+
+  createdFiles    File[]           // one-to-many relationship
+  recentFiles     RecentFile[]           // one-to-many relationship
+  userSetting     UserSetting?
+}
+
+model RecentFile {
+  id        Int                     @id @default(autoincrement())
+  user      User                    @relation(fields: [userID], references: [id])
+  userID    Int
+  file      File                    @relation(fields: [fileID], references: [id])
+  fileID    Int                     @unique
+  accessedAt DateTime               @default(now())
+}
+
+model File {
+  id              Int               @id @default(autoincrement())
+  title           String
+  fileDescription String?
+  createdAt       DateTime          @default(now())
+  author          String?
+  publishDate     DateTime?
+  isPublic        Boolean           @default(false)
+  views           Int               @default(0)
+  textContent     String
+
+  creator         User              @relation(fields: [creatorID], references: [id])
+  creatorID       Int
+  recentFile      RecentFile?
+  fileSetting     FileSetting?
+}
+
+model UserSetting{
+  id              Int               @id @default(autoincrement())
+  owner           User              @relation(fields: [ownerID], references: [id])
+  ownerID         Int               @unique
+  font            String?
+  size            Int?
+  speed           String?
+  textColor       String?
+  highlighter     String?
+  isDarkMode      Boolean?          @default(false)
+  language        String?
+}
+
+model FileSetting{
+  id             Int                @id @default(autoincrement())
+  file           File               @relation(fields: [fileID], references: [id])
+  fileID         Int                @unique
+  font           String?
+  size           Int?
+  speed          String?
+  textColor      String?
+  highlighter    String?
+  isDarkMode     Boolean?          @default(false)
+}
