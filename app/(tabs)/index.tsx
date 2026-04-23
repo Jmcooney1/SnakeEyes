@@ -20,11 +20,11 @@ export default function HomeScreen() {
 
   function handlePress_login(){
     router.push("/sign_up");
-    //setLoggedIn(true);
+    setLoggedIn(true);
   }
   function handlePress_signin(){
     router.push("/create_account");
-    //setLoggedIn(true);
+    setLoggedIn(true);
   }
 
   async function fetchUsers() {
