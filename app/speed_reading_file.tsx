@@ -23,21 +23,21 @@ export default function SpeedReadingPage() {
     }, [words.length]);
 
     return (
-    <View style={styles.titleContainer}>
+    <View style={[styles.titleContainer, {backgroundColor: colors.background}]}>
         <View style={styles.stepContainer}>
-            <ThemedText style={styles.titleProperties}>Speed Reading Page</ThemedText>
+            <ThemedText type="title" style={{fontSize: 40}}>Speed Reading Page</ThemedText>
             <View style={styles.infoContainer}>
             <ThemedText> File Name</ThemedText>
             <ThemedText> File Description</ThemedText>
             <ThemedText> Publish Date</ThemedText>
             <ThemedText> Creator Name</ThemedText>
             </View>
-            <View style={styles.createrContainer}>
-                <ThemedView style={styles.box}>
+            <View style={styles.creatorContainer}>
+                <ThemedView style={[styles.box, {backgroundColor: colors.offBackground}]}>
                     <ThemedText>{words[currIndex]}</ThemedText>
                 </ThemedView>
             </View>
-            <View style={styles.ButtonProperties}>
+            <View style={styles.butttonContainer}>
                 <Button title="HOME" color={colors.tint} onPress={() => {router.push('/')}}/>
             </View>
         </View>
@@ -52,7 +52,8 @@ export default function SpeedReadingPage() {
             alignItems: 'center',
             justifyContent: 'center',
             gap: 8,
-            marginTop: 30,
+            paddingTop: 30,
+            height: '100%',
         },
         stepContainer: {
             gap: 8,
@@ -60,11 +61,7 @@ export default function SpeedReadingPage() {
             alignItems: 'center',
             justifyContent: 'center',
         },
-        titleProperties: {
-            fontSize: 40,
-            fontWeight: 'bold',
-        },
-        createrContainer:{
+        creatorContainer:{
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
@@ -80,18 +77,16 @@ export default function SpeedReadingPage() {
             gap:10,
             marginBottom: 8,
         },
-
        box: {
             width: 300,
             height: 200,
             borderRadius: 8,
-            borderWidth: 1,
             padding: 16,
             margin: 16,
             alignItems: 'center',
             justifyContent: 'center',
         },
-        ButtonProperties:{
+        butttonContainer:{
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
