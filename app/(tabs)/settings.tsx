@@ -3,11 +3,13 @@ import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-nati
 import { useRouter } from 'expo-router';
 import { Colors, sharedStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useTranslation } from 'react-i18next';
 
 export default function SettingsScreen() {
   const router = useRouter();
-  const colorScheme = useColorScheme() ?? 'light';
-  const colors = Colors[colorScheme];
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme === 'dark' ? 'dark' : 'light'];
+  const { t } = useTranslation();
 
   return (
     <ScrollView style={[sharedStyles.container, { backgroundColor: colors.background }]}>
@@ -18,14 +20,14 @@ export default function SettingsScreen() {
           <Text style={styles.avatarText}>👤</Text>
         </View>
         <Text style={[styles.profileName, { color: colors.text }]}>Diego Bonilla</Text>
-        <Text style={[styles.profileSub, { color: colors.icon }]}>Member since 2024</Text>
+        <Text style={[styles.profileSub, { color: colors.icon }]}>{t('settings.memberSince')}</Text>
       </View>
 
       {/* Account Settings */}
       <View style={[sharedStyles.card, { backgroundColor: colors.icon + '22' }]}>
         <TouchableOpacity style={sharedStyles.row} onPress={() => router.push('/settings/account')}>
           <MaterialCommunityIcons name="account-outline" size={22} color={colors.icon} />
-          <Text style={[sharedStyles.rowText, { color: colors.text }]}>Account Settings</Text>
+          <Text style={[sharedStyles.rowText, { color: colors.text }]}>{t('settings.accountSettings')}</Text>
           <MaterialCommunityIcons name="chevron-right" size={22} color={colors.icon} />
         </TouchableOpacity>
       </View>
@@ -34,7 +36,7 @@ export default function SettingsScreen() {
       <View style={[sharedStyles.card, { backgroundColor: colors.icon + '22' }]}>
         <TouchableOpacity style={sharedStyles.row} onPress={() => router.push('/settings/accessibility')}>
           <MaterialCommunityIcons name="palette-outline" size={22} color={colors.icon} />
-          <Text style={[sharedStyles.rowText, { color: colors.text }]}>Accessibility</Text>
+          <Text style={[sharedStyles.rowText, { color: colors.text }]}>{t('settings.accessibility')}</Text>
           <MaterialCommunityIcons name="chevron-right" size={22} color={colors.icon} />
         </TouchableOpacity>
       </View>

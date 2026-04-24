@@ -1,0 +1,116 @@
+{
+    "common": {
+      "back": "Back",
+      "submit": "Submit",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "home": {
+      "recents": "Recents",
+      "notLoggedIn": "You're not logged in",
+      "signIn": "Sign in",
+      "allDone": "...that's all she wrote!"
+    },
+    "create": {
+      "title": "Create a new post",
+      "uploadFile": "Upload File",
+      "pasteText": "Paste to text box",
+      "submit": "Submit",
+      "creatorInfo": "Creator Information",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "fileTitle": "File Title",
+      "fileTitlePlaceholder": "Enter file title",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter file description",
+      "publishDate": "Publish Date",
+      "publishDatePlaceholder": "Enter the date",
+      "recommendations": "Uploader Recommendations",
+      "font": "Font",
+      "fontSize": "Font Size",
+      "highlight": "Highlight",
+      "fontColor": "Font Color",
+      "backgroundColor": "Background Color",
+      "readingSpeed": "Reading Speed",
+      "fonts": {
+        "arial": "Arial",
+        "times": "Times New Roman",
+        "courier": "Courier New"
+      },
+      "highlights": {
+        "none": "None",
+        "word": "Word",
+        "sentence": "Sentence"
+      },
+      "colors": {
+        "white": "White",
+        "black": "Black",
+        "red": "Red"
+      },
+      "speeds": {
+        "slow": "Slow",
+        "medium": "Medium",
+        "fast": "Fast"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "memberSince": "Member since 2024",
+      "accountSettings": "Account Settings",
+      "accessibility": "Accessibility"
+    },
+    "account": {
+      "title": "Account Settings",
+      "changeEmail": "Change Email",
+      "changePassword": "Change Password",
+      "deleteAccount": "Delete Account"
+    },
+    "accessibility": {
+      "title": "Accessibility",
+      "designSettings": "Design Settings",
+      "notifications": "Notifications",
+      "language": "Language"
+    },
+    "design": {
+      "title": "Design Settings",
+      "font": "Font",
+      "size": "Size",
+      "speed": "Speed",
+      "textColor": "Text Color",
+      "highlighter": "Highlighter"
+    },
+    "language": {
+      "title": "Language",
+      "hint": "Changes apply immediately across the app.",
+      "english": "English",
+      "spanish": "Español"
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "username": "Username:",
+      "usernamePlaceholder": "Enter a username",
+      "password": "Password:",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPassword": "Confirm Password:",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "haveAccount": "Have an account? Log In",
+      "createAccount": "Create Account"
+    },
+    "signIn": {
+      "title": "Login to your account",
+      "username": "Username:",
+      "usernamePlaceholder": "Enter your username",
+      "password": "Password:",
+      "passwordPlaceholder": "Enter your password",
+      "logIn": "Log In"
+    },
+    "speedReading": {
+      "title": "Speed Reading Page",
+      "fileName": "File Name",
+      "fileDescription": "File Description",
+      "publishDate": "Publish Date",
+      "creatorName": "Creator Name",
+      "home": "HOME"
+    }
+  }
+  

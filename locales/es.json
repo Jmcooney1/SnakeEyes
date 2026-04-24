@@ -1,0 +1,115 @@
+{
+    "common": {
+      "back": "Atrás",
+      "submit": "Enviar",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    },
+    "home": {
+      "recents": "Recientes",
+      "notLoggedIn": "No has iniciado sesión",
+      "signIn": "Iniciar sesión",
+      "allDone": "...¡eso es todo!"
+    },
+    "create": {
+      "title": "Crear una nueva publicación",
+      "uploadFile": "Subir archivo",
+      "pasteText": "Pegar en cuadro de texto",
+      "submit": "Enviar",
+      "creatorInfo": "Información del creador",
+      "username": "Usuario",
+      "usernamePlaceholder": "Ingresa tu nombre de usuario",
+      "fileTitle": "Título del archivo",
+      "fileTitlePlaceholder": "Ingresa el título del archivo",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Ingresa la descripción del archivo",
+      "publishDate": "Fecha de publicación",
+      "publishDatePlaceholder": "Ingresa la fecha",
+      "recommendations": "Recomendaciones del cargador",
+      "font": "Fuente",
+      "fontSize": "Tamaño de fuente",
+      "highlight": "Resaltado",
+      "fontColor": "Color de fuente",
+      "backgroundColor": "Color de fondo",
+      "readingSpeed": "Velocidad de lectura",
+      "fonts": {
+        "arial": "Arial",
+        "times": "Times New Roman",
+        "courier": "Courier New"
+      },
+      "highlights": {
+        "none": "Ninguno",
+        "word": "Palabra",
+        "sentence": "Oración"
+      },
+      "colors": {
+        "white": "Blanco",
+        "black": "Negro",
+        "red": "Rojo"
+      },
+      "speeds": {
+        "slow": "Lento",
+        "medium": "Medio",
+        "fast": "Rápido"
+      }
+    },
+    "settings": {
+      "title": "Configuración",
+      "memberSince": "Miembro desde 2024",
+      "accountSettings": "Configuración de cuenta",
+      "accessibility": "Accesibilidad"
+    },
+    "account": {
+      "title": "Configuración de cuenta",
+      "changeEmail": "Cambiar correo electrónico",
+      "changePassword": "Cambiar contraseña",
+      "deleteAccount": "Eliminar cuenta"
+    },
+    "accessibility": {
+      "title": "Accesibilidad",
+      "designSettings": "Configuración de diseño",
+      "notifications": "Notificaciones",
+      "language": "Idioma"
+    },
+    "design": {
+      "title": "Configuración de diseño",
+      "font": "Fuente",
+      "size": "Tamaño",
+      "speed": "Velocidad",
+      "textColor": "Color de texto",
+      "highlighter": "Resaltador"
+    },
+    "language": {
+      "title": "Idioma",
+      "hint": "Los cambios se aplican inmediatamente en toda la app.",
+      "english": "English",
+      "spanish": "Español"
+    },
+    "signUp": {
+      "title": "Registrarse",
+      "username": "Usuario:",
+      "usernamePlaceholder": "Ingresa un nombre de usuario",
+      "password": "Contraseña:",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "confirmPassword": "Confirmar contraseña:",
+      "confirmPasswordPlaceholder": "Confirma tu contraseña",
+      "haveAccount": "¿Ya tienes cuenta? Iniciar sesión",
+      "createAccount": "Crear cuenta"
+    },
+    "signIn": {
+      "title": "Inicia sesión en tu cuenta",
+      "username": "Usuario:",
+      "usernamePlaceholder": "Ingresa tu nombre de usuario",
+      "password": "Contraseña:",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "logIn": "Iniciar sesión"
+    },
+    "speedReading": {
+      "title": "Página de lectura rápida",
+      "fileName": "Nombre del archivo",
+      "fileDescription": "Descripción del archivo",
+      "publishDate": "Fecha de publicación",
+      "creatorName": "Nombre del creador",
+      "home": "INICIO"
+    }
+  }

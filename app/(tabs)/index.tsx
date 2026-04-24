@@ -3,14 +3,14 @@ import { SearchBar } from '@/components/search-bar';
 import { ThemedText } from '@/components/themed-text';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-
-
-const router = useRouter()
+import { useTranslation } from 'react-i18next';
 
 
 export default function HomeScreen() {  
+  const router = useRouter();
+  const { t } = useTranslation();
   const [loggedIn, setLoggedIn] = useState(true);
   const [recents, setFiles] = useState(["file1", "file2", "file3", "file4", "file5", "file6"]);
 
@@ -23,10 +23,10 @@ export default function HomeScreen() {
     return (
         <SafeAreaProvider> <SafeAreaView style={{ flex: 1, marginLeft: 20 }} edges={['top']}>
           <View style={{height: 100, pointerEvents: "none"}} />
-          <ThemedText style={styles.title}> Recents </ThemedText>
+          <ThemedText style={styles.title}> {t('home.recents')} </ThemedText>
           <ScrollView>
             { recents.map((element, idx) => { return(<FilePreview key={`${element}-${idx}`} title={element} author="author" date="date" user="user" />); })}
-            <ThemedText style={{fontSize: 20, marginLeft: 50}}> ...that's all she wrote!</ThemedText>
+            <ThemedText style={{fontSize: 20, marginLeft: 50}}>{t('home.allDone')}</ThemedText>
           </ScrollView>
           <SearchBar />
         </SafeAreaView> </SafeAreaProvider>
@@ -36,8 +36,8 @@ export default function HomeScreen() {
       <SafeAreaProvider><SafeAreaView style={{height: "100%"}}>
         <View style={{height: 100, pointerEvents: "none"}} />
         <View style={styles.loggedOutContainer}>
-          <ThemedText style={styles.title}> You're not logged in </ThemedText>
-          <Button title="Sign in" onPress={handlePress} />
+          <ThemedText style={styles.title}> {t('home.notLoggedIn')} </ThemedText>
+          <Button title={t('home.signIn')} onPress={handlePress} />
         </View>
         <SearchBar />
       </SafeAreaView></SafeAreaProvider>
