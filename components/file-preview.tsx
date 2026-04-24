@@ -1,6 +1,6 @@
 import { View, StyleSheet, Pressable } from "react-native";
 import { router, useRouter } from "expo-router";
-import { Colors, sharedStyles } from '@/constants/theme';
+import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedText } from "./themed-text";
 
@@ -13,10 +13,10 @@ export function FilePreview(props: {title: string, author: string, date: string,
     const colorScheme = useColorScheme() ?? 'light';
     const colors = Colors[colorScheme];
     return(
-        <Pressable style={[styles.contStyle, { backgroundColor: colors.background, borderColor: colors.icon }]} onPress={() => handlePress(props.title)}>
-            <ThemedText style={styles.titleStyle}>{props.title}</ThemedText>
-            <ThemedText style={styles.infoStyle}>{props.author}, {props.date}</ThemedText>
-            <ThemedText style={styles.infoStyle}>uploaded by: {props.user} </ThemedText>
+        <Pressable style={[styles.contStyle, { backgroundColor: colors.offBackground, borderWidth: 0 }]} onPress={() => handlePress(props.title)}>
+            <ThemedText type='subtitle' style={[styles.titleStyle, {color: colors.text}]}>{props.title}</ThemedText>
+            <ThemedText style={[styles.infoStyle, {color: colors.text}]}>{props.author}, {props.date}</ThemedText>
+            <ThemedText style={[styles.infoStyle, {color: colors.text}]}>uploaded by: {props.user} </ThemedText>
         </Pressable>
     );
 }

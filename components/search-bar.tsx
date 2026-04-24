@@ -37,9 +37,9 @@ export function SearchBar() {
 
     if (Platform.OS == 'web')
         return (
-            <View style={[stylesWeb.container, { backgroundColor: colors.background }]}>
+            <View style={[stylesWeb.container, { backgroundColor: colors.offBackground}]}>
                 <View style={stylesWeb.barContain}>
-                    <MaterialIcons size={28} name={isOpen ? "clear" : "search"} color="lightgray" style={{marginLeft: 20, color: colors.icon}}/>
+                    <MaterialIcons size={28} name={isOpen ? "clear" : "search"} color="lightgray" style={{marginLeft: 20, color: colors.tint}}/>
                     <Pressable style={stylesWeb.button} onPress={handlePress} />
                     {isOpen && <Pressable style={stylesWeb.exit} onPress={handlePress} />}
                     <TextInput ref={inputRef} style={[stylesMobile.input, { color: colors.text }]} placeholder="Search..."
@@ -54,7 +54,7 @@ export function SearchBar() {
         return(
             <View style={[isOpen ? stylesMobile.containerOpen : stylesMobile.container, { backgroundColor: colors.background }]}>
                 <View style={stylesMobile.barContain}>
-                    <MaterialIcons size={28} name={isOpen ? "clear" : "search"} color="lightgray" style={{marginLeft: 20, color: colors.icon}}/>
+                    <MaterialIcons size={28} name={isOpen ? "clear" : "search"} color="lightgray" style={{marginLeft: 20, color: colors.tint}}/>
                     <Pressable style={stylesMobile.button} onPress={handlePress} />
                     <TextInput ref={inputRef} style={[stylesMobile.input, { color: colors.text }]} placeholder="Search..."
                         onChangeText={(text) => setSearchVal(text)}

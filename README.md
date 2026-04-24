@@ -10,10 +10,26 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Start the front-end
 
    ```bash
    npx expo start
+   ```
+
+3. Start the back-end
+
+   ```bash
+   npm run backend-dev
+   ```
+
+4. Manage the database
+
+   ```bash
+   npx prisma generate # Generates the bridge between JS and SQLite
+   npx prisma migrate dev # Git commit
+   npx prisma migrate deploy # Git push
+   npx prisma db seed # To add mock data from seed.js to the database
+   npx prisma studio # UI to help verify the database
    ```
 
 In the output, you'll find options to open the app in a
