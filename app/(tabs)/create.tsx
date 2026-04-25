@@ -3,7 +3,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { Picker } from '@react-native-picker/picker';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function CreateScreen() {
@@ -28,6 +28,15 @@ export default function CreateScreen() {
     { label: 'Background Color', icon: 'format-color-fill', value: selectedBackgroundColor, setter: setSelectedBackgroundColor, items: [{ label: 'White', value: 'White' }, { label: 'Black', value: 'Black' }, { label: 'Red', value: 'Red' }] },
     { label: 'Reading Speed', icon: 'speedometer', value: selectedReadingSpeed, setter: setSelectedReadingSpeed, items: [{ label: 'Slow', value: 'Slow' }, { label: 'Medium', value: 'Medium' }, { label: 'Fast', value: 'Fast' }] },
   ];
+
+  async function fetchFiles() {
+    const response = await fetch("http://localhost:3000/api/files");
+    const data = await response.json();
+    console.log(data);
+  }
+  useEffect(() => {
+    fetchFiles()
+  }, [])
 
   return (
     <ScrollView style={[sharedStyles.container, { backgroundColor: colors.background }]}>

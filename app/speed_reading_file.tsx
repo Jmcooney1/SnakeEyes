@@ -1,10 +1,10 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Colors } from '@/constants/theme';
+import { Button, StyleSheet, View } from 'react-native';
 
 export default function SpeedReadingPage() {
     //sample text for now; will replace with actual file content once backend is set up
@@ -13,6 +13,15 @@ export default function SpeedReadingPage() {
     const [currIndex, setCurrIndex] = useState(0);
     const colorScheme = useColorScheme() ?? 'light';
     const colors = Colors[colorScheme];
+
+    async function fetchFilesSetting() {
+        const response = await fetch("http://localhost:3000/api/fileSetting");
+        const data = await response.json();
+        console.log(data);
+    }
+    useEffect(() => {
+        fetchFilesSetting();
+    }, []);
 
     useEffect(() => {
         const timer = setInterval(() => {
