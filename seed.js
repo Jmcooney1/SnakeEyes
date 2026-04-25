@@ -16,7 +16,9 @@ async function main() {
       email:    "aj@example.com",
       createdAt: new Date(),
       isModerator: false,
-      createdFiles: {}
+      createdFiles: {
+        create: [],
+      },
       },
     },
   );

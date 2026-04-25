@@ -2,12 +2,22 @@ import { Tabs } from "expo-router";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
+import { getItem, setItem } from "../../store";
+import { useEffect, useState } from "react";
 
-const loggedIn = true;
 
 export default function TabLayout() {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
+  const [loggedIn, setLoggedIn] = useState(getItem('isLoggedIn'));
+
+  async function getLoggedInStatus() {
+    const status = getItem('isLoggedIn');
+    status != null ? setLoggedIn(status) : setLoggedIn(false);
+  }
+
+  useEffect(() => {getLoggedInStatus()}, []);
+
   return (
    <Tabs>
     <Tabs.Protected guard={loggedIn}>

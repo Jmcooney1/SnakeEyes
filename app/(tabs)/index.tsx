@@ -4,26 +4,31 @@ import { ThemedText } from '@/components/themed-text';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Button } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
-  const [recents, setFiles] = useState(["file1", "file2", "file3", "file4", "file5", "file6"]);
+  const [recents, setRecents] = useState<string[]>([]);
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
 
-  async function fetchUsers() {
-    const response = await fetch("http://localhost:3000/api/users");
+  async function fetchUserRecents() {
+    const response = await fetch("http://localhost:3000/api/users/AJ29");
     const data = await response.json();
-    console.log(data);
+    data.recentFiles.forEach( (file: {fileID: string, }) => {getRecentData(file)});
   }
-
-//   async function toggleLoggedIn() { await SecureStore.setItemAsync("loggedIn", "false"); }
-
-  useEffect(() => { fetchUsers() }, [])
+  async function getRecentData(file: {fileID: string, }) {
+    const fileID: string = file.fileID;
+    const findRecent = await fetch("http://localhost:3000/api/files/preview/" + fileID);
+    const filePrevData = await findRecent.json();
+    console.log(filePrevData);
+    const newRecents = [...recents, filePrevData.title]
+    setRecents(newRecents);
+  }
+  useEffect(() => { fetchUserRecents() }, [])
 
     return (
-        <SafeAreaProvider> <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['bottom']}>
+        <SafeAreaProvider> <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top']}>
           <View style={{height: 100, pointerEvents: "none"}} />
           <ThemedText type='title' style={styles.title}> Recents </ThemedText>
           <ScrollView style={{marginHorizontal: 20}}>

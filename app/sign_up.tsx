@@ -1,7 +1,14 @@
 import { router } from 'expo-router';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { setItem, getItem } from "../store";
 
 export default function SignIn() {
+
+    function handlePress(){ 
+        setItem('isLoggedIn', true);
+        router.push("/");
+    }
+
     return (
         <View style={styles.container}>
         <View style={ styles.titlecontainer }>
@@ -23,7 +30,7 @@ export default function SignIn() {
             />
         </View>
             {/*<Button title="Don't have an account? Sign Up" onPress = {() => {router.push('create_account')}} /> */}
-            <Button title="Log In" onPress={() => {router.push('/')}}/>
+            <Button title="Log In" onPress={handlePress}/>
 
         </View>
     );
