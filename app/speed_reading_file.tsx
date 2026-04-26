@@ -1,48 +1,64 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { Button, StyleSheet, View } from 'react-native';
 
 export default function SpeedReadingPage() {
-    //sample text for now; will replace with actual file content once backend is set up
-    const reading:string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    const words:string[] = (reading.trim().split(" "));
+
+    const { fileID } = useLocalSearchParams();
+    const [fileData, setFileData] = useState<any>(null);
+    const [words, setWords] = useState<string[]>([]);
     const [currIndex, setCurrIndex] = useState(0);
     const colorScheme = useColorScheme() ?? 'light';
     const colors = Colors[colorScheme];
 
+
     useEffect(() => {
+    async function fetchFile() {
+        try {
+            const response = await fetch(`http://localhost:3000/api/files/${fileID}`);
+            const data = await response.json();
+            setFileData(data);
+            setWords(data.textContent.trim().split(" "));
+        } catch (err) {
+            console.error("Error fetching file:", err);
+        }
+    }
+    if (fileID) fetchFile();
+}, [fileID]);
+
+// ✅ Keep: timer with guard
+    useEffect(() => {
+        if (words.length === 0) return;
         const timer = setInterval(() => {
-            setCurrIndex(prev => (prev + 1)%words.length);
-        }, 300 + words[currIndex].length * 10 + (words[currIndex].length > 8 ? 100 : 0)); //base time + extra time based on word length
-        console.log(currIndex);
+            setCurrIndex(prev => (prev + 1) % words.length);
+        }, 300 + words[currIndex].length * 10 + (words[currIndex].length > 8 ? 100 : 0));
         return () => clearInterval(timer);
-    }, [words.length]);
+    }, [words.length, currIndex]);
 
     return (
-    <View style={[styles.titleContainer, {backgroundColor: colors.background}]}>
-        <View style={styles.stepContainer}>
-            <ThemedText type="title" style={{fontSize: 40}}>Speed Reading Page</ThemedText>
-            <View style={styles.infoContainer}>
-            <ThemedText> File Name</ThemedText>
-            <ThemedText> File Description</ThemedText>
-            <ThemedText> Publish Date</ThemedText>
-            <ThemedText> Creator Name</ThemedText>
-            </View>
-            <View style={styles.creatorContainer}>
-                <ThemedView style={[styles.box, {backgroundColor: colors.offBackground}]}>
-                    <ThemedText>{words[currIndex]}</ThemedText>
-                </ThemedView>
-            </View>
-            <View style={styles.butttonContainer}>
-                <Button title="HOME" color={colors.tint} onPress={() => {router.push('/')}}/>
-            </View>
+    <View style={[styles.titleContainer, { backgroundColor: colors.background }]}>
+      <View style={styles.stepContainer}>
+        <ThemedText type="title" style={{ fontSize: 40 }}>Speed Reading Page</ThemedText>
+        <View style={styles.infoContainer}>
+          <ThemedText>{fileData?.title ?? 'Loading...'}</ThemedText>
+          <ThemedText>{fileData?.fileDescription ?? ''}</ThemedText>
+          <ThemedText>{fileData?.publishDate ?? ''}</ThemedText>
         </View>
+        <View style={styles.creatorContainer}>
+          <ThemedView style={[styles.box, { backgroundColor: colors.offBackground }]}>
+            <ThemedText>{words[currIndex] ?? ''}</ThemedText>
+          </ThemedView>
+        </View>
+        <View style={styles.butttonContainer}>
+          <Button title="HOME" color={colors.tint} onPress={() => router.push('/')} />
+        </View>
+      </View>
     </View>
-    );
+  );
 }
 
 
