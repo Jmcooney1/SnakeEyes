@@ -3,7 +3,6 @@ import { ThemedText } from '@/components/themed-text';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useRouter } from 'expo-router';
-import { useEffect } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
@@ -14,18 +13,6 @@ export default function HomeScreen() {
   const colors = Colors[colorScheme];
 
   function handlePress(){ router.push("/sign_up"); }
-
-  // async function toggleLoggedIn() { await SecureStore.setItemAsync("loggedIn", "false"); }
-
-  async function fetchUsers() {
-    const response = await fetch("http://localhost:3000/api/users");
-    const data = await response.json();
-    console.log(data);
-  }
-
-  useEffect(() => {
-    fetchUsers()
-  }, [])
 
     return(
       <SafeAreaProvider><SafeAreaView style={{height: "100%", backgroundColor: colors.background }}>

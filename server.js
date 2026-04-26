@@ -47,7 +47,7 @@ app.get("/api/users/:username", async (req, res) => {
   const username = req.params.username;
   const user = await prisma.user.findUnique({
     where: { username: username },
-    select: { id: true, username: true, password: true, createdAt: true, recentFiles: true },
+    select: { id: true, username: true, password: true, createdAt: true, recentFiles: true, createdFiles: true },
   });
   if (!user) {
     return res.status(404).json({ error: "User not found" });
@@ -58,16 +58,36 @@ app.get("/api/users/:username", async (req, res) => {
 // -- GET/api/files/preview/:fileID -- Get a specific file's data necessary to display on preview
 app.get("/api/files/preview/:fileID", async(req,res) => {
   const fileID = parseInt(req.params.fileID);
-  console.log(fileID);
   const file = await prisma.file.findUnique({
     where: { id: fileID },
-    select: { title: true }
+    select: { id: true, title: true, author: true, publishDate: true, creator: true, isPublic: true }
   });
   if (!file) {
     return res.status(404).json({ error: "File not found" });
   }
   res.json(file);
 })
+
+app.get("/api/files/view/:fileID", async(req,res) => {
+  const fileID = parseInt(req.params.fileID);
+  const file = await prisma.file.findUnique({
+    where: { id: fileID },
+    include: { creator: true }
+  });
+  if (!file) {
+    return res.status(404).json({ error: "File not found" });
+  }
+  res.json(file);
+})
+
+app.get("/api/search/:entry", async(req,res) => {
+  const entry = req.params.entry;
+  const files = await prisma.file.findMany({
+    where: { title: { contains: entry } },
+    select: { id: true },
+  });
+  res.json(files);
+});
 
 // -- GET/api/setting -- List all registered post
 app.get("/api/setting", async(req,res) => {

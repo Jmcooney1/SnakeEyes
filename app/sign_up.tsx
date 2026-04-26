@@ -20,7 +20,6 @@ export default function LogIn() {
             router.push('/');
         }
         else console.log("Login Failed: Invalid username or password");
-        console.log(result);
     } 
 
     return (
