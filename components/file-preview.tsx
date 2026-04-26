@@ -6,14 +6,14 @@ import { ThemedText } from "./themed-text";
 
 //TODO: for now, using name as a placeholder for file ID; change once backend is set up
 
-function handlePress(fileID: string){
+function handlePress(fileID: number){
     router.push(`/file-view/${fileID}`);
 }
-export function FilePreview(props: {title: string, author: string, date: string, user: string}){
+export function FilePreview(props: {id: number, title: string, author: string, date: string, user: string}){
     const colorScheme = useColorScheme() ?? 'light';
     const colors = Colors[colorScheme];
     return(
-        <Pressable style={[styles.contStyle, { backgroundColor: colors.offBackground, borderWidth: 0 }]} onPress={() => handlePress(props.title)}>
+        <Pressable style={[styles.contStyle, { backgroundColor: colors.offBackground, borderWidth: 0 }]} onPress={() => handlePress(props.id)}>
             <ThemedText type='subtitle' style={[styles.titleStyle, {color: colors.text}]}>{props.title}</ThemedText>
             <ThemedText style={[styles.infoStyle, {color: colors.text}]}>{props.author}, {props.date}</ThemedText>
             <ThemedText style={[styles.infoStyle, {color: colors.text}]}>uploaded by: {props.user} </ThemedText>

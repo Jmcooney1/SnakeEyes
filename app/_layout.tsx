@@ -18,6 +18,8 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="settings" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+        <Stack.Screen name="file-view/[fileID]" options={{title: "File Info View"}} />
+        <Stack.Screen name="search-results/[entry]" options={{title: "Search Results"}} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
