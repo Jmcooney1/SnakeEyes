@@ -91,7 +91,7 @@ export default function SignUp() {
             console.log("data is:", parsed);
 
             console.log('Account Created');
-            router.replace('/(tabs)');
+            router.replace('/');
 
         }
         catch

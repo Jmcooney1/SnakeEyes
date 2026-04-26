@@ -16,7 +16,7 @@ async function main() {
       email:    "aj@example.com",
       createdAt: new Date(),
       isModerator: false,
-      createdFiles: {}
+      createdFiles: {create: []}
       },
     },
   );
@@ -45,7 +45,7 @@ async function main() {
         textContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       }
   });
-  console.log(`Seeded ${aliceFiles.count} files for Alice.`);
+  console.log(`Seeded file: ${aliceFiles.title}`);
   console.log(aliceFiles);
   
   const aliceRecentFile = await prisma.recentFile.create({
