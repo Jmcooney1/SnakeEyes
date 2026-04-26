@@ -3,6 +3,7 @@ import { SearchBar } from '@/components/search-bar';
 import { ThemedText } from '@/components/themed-text';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { getItem } from '@/store';
 import { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -11,9 +12,10 @@ export default function HomeScreen() {
   const [recents, setRecents] = useState<string[]>([]);
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
+  const username:string = getItem('username');
 
   async function fetchUserRecents() {
-    const response = await fetch("http://localhost:3000/api/users/AJ29");
+    const response = await fetch(`http://localhost:3000/api/users/${username}`);
     const data = await response.json();
     data.recentFiles.forEach( (file: {fileID: string, }) => {getRecentData(file)});
   }
@@ -33,7 +35,7 @@ export default function HomeScreen() {
           <ThemedText type='title' style={styles.title}> Recents </ThemedText>
           <ScrollView style={{marginHorizontal: 20}}>
             { recents.map((element, idx) => { return(<FilePreview key={`${element}-${idx}`} title={element} author="author" date="date" user="user" />); })}
-            <ThemedText style={{fontSize: 20, marginLeft: 50}}> ...that's all she wrote!</ThemedText>
+            <ThemedText style={{fontSize: 20, marginLeft: 50}}> {recents.length==0 ? "No recent files found." : "ain't nothing more" }</ThemedText>
           </ScrollView>
           <SearchBar />
         </SafeAreaView> </SafeAreaProvider>
