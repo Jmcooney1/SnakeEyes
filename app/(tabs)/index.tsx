@@ -19,7 +19,7 @@ export default function HomeScreen() {
   }
   async function getRecentData(file: {fileID: string, }) {
     const fileID: string = file.fileID;
-    const findRecent = await fetch("http://localhost:3000/api/files/preview/" + fileID);
+    const findRecent = await fetch(`http://localhost:3000/api/files/preview/${fileID}`);
     const filePrevData = await findRecent.json();
     console.log(filePrevData);
     const newRecents = [...recents, filePrevData.title]

@@ -17,8 +17,34 @@ app.get("/api/users/", async (req, res) => {
   res.json(users);
 });
 
+app.get("/api/tryLogin", async (req, res) => {
+  const user = req.query.u;
+  const pass = req.query.p;
+  console.log(user);
+  console.log(pass);
+
+  const attemptedUser = await prisma.user.findUnique({
+    where: {username: user},
+    select: {password: true}
+  })
+  if(!attemptedUser){
+    return res.json({ 
+      username: user, validUser: false,
+      password: pass, validPass: false,
+    });
+  }
+  else{
+    const vp = attemptedUser.password===pass;
+    console.log(vp);
+    res.json({ 
+      username: user, validUser: true,
+      password: pass, validPass: vp,
+    });
+  }
+});
+
 app.get("/api/users/:username", async (req, res) => {
-  const { username } = req.params;
+  const username = req.params.username;
   const user = await prisma.user.findUnique({
     where: { username: username },
     select: { id: true, username: true, password: true, createdAt: true, recentFiles: true },
