@@ -15,3 +15,4 @@ export const getItem = (key: string) => {
 export const deleteItem = (key: string) => {
   delete store[key];
 };
+

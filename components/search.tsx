@@ -13,12 +13,9 @@ export function Search(props: {searchVal: string}){
         if(props.searchVal.length==0) return;
         const response = await fetch(`http://localhost:3000/api/search/${props.searchVal}`);
         const data = await response.json();
-        setList([]);
-        for(let a=0;a<4;a++)
-            if(data[a])
-                setList([...list, data[a].title]);
+        setList(data.map((item:string) => item.title));
     }
-    useEffect(() => { fetchSearchResults() }, [props.searchVal])
+    useEffect(() => { fetchSearchResults() }, [props.searchVal]);
 
     const router = useRouter();
     const [list, setList] = useState<string[]>([]);

@@ -40,7 +40,7 @@ app.patch("/api/addview", async (req, res) => {
     });
     res.json({ updatedFile, recentFile });
   } 
-  catch (error) {
+    catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to record view" });
   }
@@ -285,6 +285,7 @@ app.get("/api/search/:entry", async(req,res) => {
     orderBy: {views: "desc" },
     where: { title: { contains: entry } },
     select: { id: true, title: true },
+    take: 5
   });
   res.json(files);
 });
