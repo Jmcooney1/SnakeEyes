@@ -1,21 +1,66 @@
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { READER_CONFIG } from '@/constants/reader-config';
 import { Colors, sharedStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function DesignScreen() {
   const router = useRouter();
-  const colorScheme = useColorScheme() ?? 'light';
-  const colors = Colors[colorScheme];
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme === 'dark' ? 'dark' : 'light'];
 
   const [selectedFont, setSelectedFont] = useState('Default');
   const [selectedSize, setSelectedSize] = useState(16);
   const [selectedSpeed, setSelectedSpeed] = useState('Normal');
   const [selectedColor, setSelectedColor] = useState('#000000');
   const [selectedHighlight, setSelectedHighlight] = useState('None');
+  const [isSaving, setIsSaving] = useState(false);
+
+  // Demo user id until login/auth is implemented
+  const ownerID = 1;
+  const API_BASE_URL = 'http://localhost:3000';
+
+  async function loadSettings() {
+    const res = await fetch(`${API_BASE_URL}/api/user-settings/${ownerID}`);
+    if (!res.ok) throw new Error(`Failed to load settings (${res.status})`);
+    const data = await res.json();
+
+    if (data?.font) setSelectedFont(String(data.font));
+    if (typeof data?.size === 'number') setSelectedSize(data.size);
+    if (data?.speed) setSelectedSpeed(String(data.speed));
+    if (data?.textColor) setSelectedColor(String(data.textColor));
+    if (data?.highlighter) setSelectedHighlight(String(data.highlighter));
+  }
+
+  async function saveSettings() {
+    setIsSaving(true);
+    try {
+      const payload = {
+        font: selectedFont,
+        size: selectedSize,
+        speed: selectedSpeed,
+        textColor: selectedColor,
+        highlighter: selectedHighlight,
+      };
+
+      const res = await fetch(`${API_BASE_URL}/api/user-settings/${ownerID}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(`Failed to save settings (${res.status})`);
+      await res.json();
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  useEffect(() => {
+    loadSettings().catch((e) => console.warn(e));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ScrollView style={[sharedStyles.container, { backgroundColor: colors.background }]}>
@@ -98,6 +143,14 @@ export default function DesignScreen() {
         ))}
       </View>
 
+      <TouchableOpacity
+        style={[styles.saveButton, { backgroundColor: colors.tint }, isSaving && { opacity: 0.7 }]}
+        disabled={isSaving}
+        onPress={saveSettings}
+      >
+        <Text style={styles.saveButtonText}>{isSaving ? 'Saving...' : 'Save'}</Text>
+      </TouchableOpacity>
+
     </ScrollView>
   );
 }
@@ -125,5 +178,19 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     borderColor: 'transparent',
+  },
+  saveButton: {
+    marginHorizontal: 16,
+    marginTop: 20,
+    marginBottom: 40,
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  saveButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '700',
   },
 });

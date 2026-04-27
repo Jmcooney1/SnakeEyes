@@ -18,7 +18,7 @@ app.get("/api/users", async (req, res) => {
 });
 
 // -- GET/api/posts -- List all registered post
-app.get("api/posts", async(req,res) => {
+app.get("/api/posts", async(req,res) => {
   const posts = await prisma.post.findMany({
     select: { id:true, title:true, publishDate: true, creatorUsername: true},
     orderBy: { createdAt: "desc"}
@@ -27,13 +27,29 @@ app.get("api/posts", async(req,res) => {
 })
 
 // -- GET/api/setting -- List all registered post
-app.get("api/setting", async(req,res) => {
-  const settings = await prisma.setting.findMany({
-    select: { id:true, user:true, post:true},
-    orderBy: { createdAt: "desc"}
-  });
+app.get("/api/user-settings/:ownerID", async (req, res) =>{
+  const ownerID = Number(req.params.ownerID);
+  if(!Number.isFinite(ownerID)) return res.status(400).json({error: "Invalid ownerID" });
+
+  const settings = await prisma.userSetting.findUnique({where: { ownerID }});
   res.json(settings);
-})
+});
+
+app.put("/api/user-settings/:ownerID", async (req, res) =>{
+  const ownerID = Number(req.params.ownerID);
+  if(!Number.isFinite(ownerID)) return res.status(400).json({ error: "Invalid ownerID" });
+
+  const data = req.body ??{};
+  const settings = await prisma.userSetting.upsert({
+    where: { ownerID },
+    create: {ownerID, ...data },
+    update: {...data},
+
+});
+  res.json(settings);
+});
+
+
 
 const PORT = 3000;
 app.listen(PORT, () => {
