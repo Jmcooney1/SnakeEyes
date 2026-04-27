@@ -33,6 +33,7 @@ export default function LogIn() {
                     style={[styles.input, { color: colors.text }]}
                     placeholder="Enter your username"
                     onChangeText={(text)=>{setUser(text);}}
+                    onSubmitEditing={handleLogInPress}
                 />
             </View>
             <View style={styles.formContainer}>
@@ -41,6 +42,7 @@ export default function LogIn() {
                     style={[styles.input, { color: colors.text }]}
                     placeholder="Enter your password"
                     onChangeText={(text)=>{setPass(text);}}
+                    onSubmitEditing={handleLogInPress}
                     secureTextEntry
                 />
             </View>
@@ -48,7 +50,7 @@ export default function LogIn() {
              <View style={styles.ButtonContainer}>
                 <TouchableOpacity
                     style={styles.Button}
-                    onPress = {() => {router.push('/create_account')}}>
+                    onPress = {() => {router.push('/Create_Account')}}>
                     <Text style={styles.ButtonText}>Don't have an account? Sign up</Text>
                 </TouchableOpacity>
             </View>

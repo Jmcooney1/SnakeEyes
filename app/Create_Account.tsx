@@ -1,8 +1,9 @@
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { setItem } from '@/store';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-native';
 
 
 
@@ -91,7 +92,9 @@ export default function SignUp() {
             console.log("data is:", parsed);
 
             console.log('Account Created');
-            router.replace('/');
+            setItem('isLoggedIn', true);
+            setItem('username', username);
+            router.push('/');
 
         }
         catch
@@ -103,7 +106,7 @@ export default function SignUp() {
     }
 
     return (
-    <View style={{backgroundColor: colors.background, flex: 1, alignItems: 'center'}}>
+    <ScrollView><View style={{backgroundColor: colors.background, flex: 1, alignItems: 'center'}}>
             <View style={styles.titlecontainer}>
                 <Text style={[styles.title, {color: colors.text}]}>Sign Up</Text>
             </View>
@@ -175,7 +178,7 @@ export default function SignUp() {
                 <Text style={styles.ButtonText}>Have an account? Log In</Text>
             </TouchableOpacity>
             </View>
-        </View>
+        </View></ScrollView>
     );
 }
 

@@ -25,8 +25,7 @@ export default function SearchResults() {
         const filePrevData = await findRecent.json();
         console.log(filePrevData);
         if(filePrevData.isPublic||getItem('username')==filePrevData.creator.username){
-            const tempFiles = [...files, filePrevData];
-            setFiles(tempFiles);
+            setFiles((prev) => [...prev, filePrevData]);
         }
     }
     useEffect(() => { fetchSearchResults() }, [entry])

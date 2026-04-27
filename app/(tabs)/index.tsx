@@ -26,16 +26,6 @@ export default function HomeScreen() {
   const colors = Colors[colorScheme];
   const username:string = getItem('username');
 
-
-  function handlePress_login(){
-    router.push("/sign_up");
-    //setLoggedIn(true);
-  }
-  function handlePress_signin(){
-    router.push("/create_account");
-    //setLoggedIn(true);
-  }
-
   async function fetchUserFiles() {
     const response = await fetch(`http://localhost:3000/api/users/${username}`);
     const data = await response.json();
@@ -49,24 +39,20 @@ export default function HomeScreen() {
     const findFile = await fetch(`http://localhost:3000/api/files/preview/${fileID}`);
     const filePrevData = await findFile.json();
     if(filePrevData.isPublic||username==filePrevData.creator.username){
-        const newRecents = [...recents, filePrevData]
-        setRecents(newRecents);
+        setRecents(prev => [...prev, filePrevData]);
     }
   }
   async function getFilePreviewDataO(file: {id: string}) {
     const fileID: string = file.id;
     const findFile = await fetch(`http://localhost:3000/api/files/preview/${fileID}`);
     const filePrevData = await findFile.json();
-    const newOwned = [...owned, filePrevData]
-    setOwned(newOwned);
+    setOwned(prev => [...prev, filePrevData]);
   }
   useEffect(() => { fetchUserFiles() }, []);
 
     return (
         <SafeAreaProvider> <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top']}>
           <View style={{height: 100, pointerEvents: "none"}} />
-          <Button title="Log in" onPress={handlePress_login} />
-          <Button title="Sign up" onPress={handlePress_signin} />
           <ThemedText type='title' style={styles.title}> Recents </ThemedText>
           <ScrollView>
             <ScrollView style={{marginHorizontal: 20, height: 265}}>

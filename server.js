@@ -8,6 +8,45 @@ const prisma = new PrismaClient();
 app.use(express.json());
 app.use(cors());
 
+// PATCH API ENDPOINTS
+app.patch("/api/addview", async (req, res) => {
+  const fileID = parseInt(req.query.f);
+  const username = req.query.u;
+  try {
+    const user = await prisma.user.findUnique({
+      where: { username: username }
+    });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const [updatedFile, existing] = await Promise.all([
+      prisma.file.update({
+        where: { id: fileID },
+        data: { views: { increment: 1 } }
+      }),
+      prisma.recentFile.findFirst({
+        where: { userID: user.id, fileID: fileID }
+      })
+    ]);
+    if (existing) {
+      const updated = await prisma.recentFile.update({
+        where: { id: existing.id },
+        data: { accessedAt: new Date() }
+      });
+      return res.json({ updatedFile, updated });
+    }
+    const recentFile = await prisma.recentFile.create({
+      data: { userID: user.id, fileID: fileID }
+    });
+    res.json({ updatedFile, recentFile });
+  } 
+    catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to record view" });
+  }
+});
+
+
 // -- GET API ENDPOINTS --
 
 // GET /api/users — List all users
@@ -243,8 +282,20 @@ app.get("/api/files/view/:fileID", async(req,res) => {
 app.get("/api/search/:entry", async(req,res) => {
   const entry = req.params.entry;
   const files = await prisma.file.findMany({
+    orderBy: {views: "desc" },
     where: { title: { contains: entry } },
-    select: { id: true },
+    select: { id: true, title: true },
+  });
+  res.json(files);
+});
+
+app.get("/api/searchsug/:entry", async(req,res) => {
+  const entry = req.params.entry;
+  const files = await prisma.file.findMany({
+    orderBy: {views: "desc" },
+    where: { title: { contains: entry } },
+    select: { id: true, title: true },
+    take: 5
   });
   res.json(files);
 });
