@@ -12,10 +12,11 @@ function handlePress(fileID: number){
 export function FilePreview(props: {id: number, title: string, author: string, date: string, user: string}){
     const colorScheme = useColorScheme() ?? 'light';
     const colors = Colors[colorScheme];
+    const dateDisplay = props.date=="date unknown"? props.date:new Date(props.date);
     return(
         <Pressable style={[styles.contStyle, { backgroundColor: colors.offBackground, borderWidth: 0 }]} onPress={() => handlePress(props.id)}>
             <ThemedText type='subtitle' style={[styles.titleStyle, {color: colors.text}]}>{props.title}</ThemedText>
-            <ThemedText style={[styles.infoStyle, {color: colors.text}]}>{props.author}, {props.date}</ThemedText>
+            <ThemedText style={[styles.infoStyle, {color: colors.text}]}>{props.author}, {dateDisplay==props.date? dateDisplay:dateDisplay.toLocaleDateString()}</ThemedText>
             <ThemedText style={[styles.infoStyle, {color: colors.text}]}>uploaded by: {props.user} </ThemedText>
         </Pressable>
     );

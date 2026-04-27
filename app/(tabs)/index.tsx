@@ -39,16 +39,14 @@ export default function HomeScreen() {
     const findFile = await fetch(`http://localhost:3000/api/files/preview/${fileID}`);
     const filePrevData = await findFile.json();
     if(filePrevData.isPublic||username==filePrevData.creator.username){
-        const newRecents = [...recents, filePrevData]
-        setRecents(newRecents);
+        setRecents(prev => [...prev, filePrevData]);
     }
   }
   async function getFilePreviewDataO(file: {id: string}) {
     const fileID: string = file.id;
     const findFile = await fetch(`http://localhost:3000/api/files/preview/${fileID}`);
     const filePrevData = await findFile.json();
-    const newOwned = [...owned, filePrevData]
-    setOwned(newOwned);
+    setOwned(prev => [...prev, filePrevData]);
   }
   useEffect(() => { fetchUserFiles() }, []);
 

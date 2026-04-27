@@ -2,20 +2,26 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { getItem } from '@/store';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 
-export default function SpeedReadingPage() {
+async function recordView(fileID:number){
+    if(getItem('username'))
+        await fetch(`http://localhost:3000/api/addview?u=${getItem('username')}&f=${fileID}`, { method: 'PATCH', });
+}
 
-    const { fileID } = useLocalSearchParams();
+export default function SpeedReadingPage() {
+    
+    const { fileID } = useLocalSearchParams<{fileID: string}>();
     const [fileData, setFileData] = useState<any>(null);
     const [words, setWords] = useState<string[]>([]);
     const [currIndex, setCurrIndex] = useState(0);
     const colorScheme = useColorScheme() ?? 'light';
     const colors = Colors[colorScheme];
 
-
+    useEffect(() => {recordView(parseInt(fileID));}, []);
     useEffect(() => {
     async function fetchFile() {
         try {
