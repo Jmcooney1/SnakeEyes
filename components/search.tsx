@@ -11,7 +11,7 @@ export function Search(props: {searchVal: string}){
 
     async function fetchSearchResults() {
         if(props.searchVal.length==0) return;
-        const response = await fetch(`http://localhost:3000/api/search/${props.searchVal}`);
+        const response = await fetch(`http://localhost:3000/api/searchsug/${props.searchVal}`);
         const data = await response.json();
         setList(data.map((item:string) => item.title));
     }

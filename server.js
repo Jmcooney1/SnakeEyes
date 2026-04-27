@@ -285,6 +285,16 @@ app.get("/api/search/:entry", async(req,res) => {
     orderBy: {views: "desc" },
     where: { title: { contains: entry } },
     select: { id: true, title: true },
+  });
+  res.json(files);
+});
+
+app.get("/api/searchsug/:entry", async(req,res) => {
+  const entry = req.params.entry;
+  const files = await prisma.file.findMany({
+    orderBy: {views: "desc" },
+    where: { title: { contains: entry } },
+    select: { id: true, title: true },
     take: 5
   });
   res.json(files);
