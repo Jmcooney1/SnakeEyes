@@ -244,7 +244,7 @@ app.get("/api/search/:entry", async(req,res) => {
   const entry = req.params.entry;
   const files = await prisma.file.findMany({
     where: { title: { contains: entry } },
-    select: { id: true },
+    select: { id: true, title: true },
   });
   res.json(files);
 });

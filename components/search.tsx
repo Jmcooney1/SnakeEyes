@@ -1,13 +1,27 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { ThemedText } from "./themed-text";
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
+
+
 export function Search(props: {searchVal: string}){
+
+    async function fetchSearchResults() {
+        if(props.searchVal.length==0) return;
+        const response = await fetch(`http://localhost:3000/api/search/${props.searchVal}`);
+        const data = await response.json();
+        setList([]);
+        for(let a=0;a<4;a++)
+            if(data[a])
+                setList([...list, data[a].title]);
+    }
+    useEffect(() => { fetchSearchResults() }, [props.searchVal])
+
     const router = useRouter();
-    const [list, setList] = useState(["entry1", "entry2", "entry3", "entry4"]);
+    const [list, setList] = useState<string[]>([]);
     const colorScheme = useColorScheme() ?? 'light';
     const colors = Colors[colorScheme];
 
