@@ -4,12 +4,14 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Colors, sharedStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useTranslation } from 'react-i18next';
 
 export default function AccessibilityScreen() {
   const router = useRouter();
-  const colorScheme = useColorScheme() ?? 'light';
+  const colorScheme = (useColorScheme() ?? 'light') as 'light' | 'dark';
   const colors = Colors[colorScheme];
   const [notifications, setNotifications] = useState(false); //this for to create boolean var for the notification
+  const { t } = useTranslation();
 
   return (
     <ScrollView style={[sharedStyles.container, { backgroundColor: colors.background }]}>
@@ -17,7 +19,7 @@ export default function AccessibilityScreen() {
       {/* Header */}
       <TouchableOpacity style={sharedStyles.backRow} onPress={() => router.back()}> 
         <MaterialCommunityIcons name="arrow-left" size={24} color={colors.text} />
-        <Text style={[sharedStyles.backText, { color: colors.text }]}>Accessibility</Text>
+        <Text style={[sharedStyles.backText, { color: colors.text }]}>{t('settings.accessibility')}</Text>
       </TouchableOpacity>
 
       {/* Options */}
@@ -26,7 +28,7 @@ export default function AccessibilityScreen() {
         {/* Design Settings */}
         <TouchableOpacity style={sharedStyles.row} onPress={() => router.push('/settings/design')}>
           <MaterialCommunityIcons name="palette-outline" size={22} color={colors.icon} />
-          <Text style={[sharedStyles.rowText, { color: colors.text }]}>Design Settings</Text>
+          <Text style={[sharedStyles.rowText, { color: colors.text }]}>{t('settings.designSettings')}</Text>
           <MaterialCommunityIcons name="chevron-right" size={22} color={colors.icon} />
         </TouchableOpacity>
         <View style={[sharedStyles.divider, { backgroundColor: colors.icon + '44' }]} />
@@ -34,7 +36,7 @@ export default function AccessibilityScreen() {
         {/* Notifications toggle */}
         <View style={sharedStyles.row}>
           <MaterialCommunityIcons name="bell-outline" size={22} color={colors.icon} />
-          <Text style={[sharedStyles.rowText, { color: colors.text }]}>Notifications</Text>
+          <Text style={[sharedStyles.rowText, { color: colors.text }]}>{t('settings.notifications')}</Text>
           <Switch
             value={notifications}
             onValueChange={(value) => setNotifications(value)}
@@ -44,9 +46,9 @@ export default function AccessibilityScreen() {
         <View style={[sharedStyles.divider, { backgroundColor: colors.icon + '44' }]} />
 
         {/* Language */}
-        <TouchableOpacity style={sharedStyles.row}>
+        <TouchableOpacity style={sharedStyles.row} onPress={() => router.push('/settings/accessibilityf/language')}>
           <MaterialCommunityIcons name="web" size={22} color={colors.icon} />
-          <Text style={[sharedStyles.rowText, { color: colors.text }]}>Language</Text>
+          <Text style={[sharedStyles.rowText, { color: colors.text }]}>{t('common.language')}</Text>
           <MaterialCommunityIcons name="chevron-right" size={22} color={colors.icon} />
         </TouchableOpacity>
 

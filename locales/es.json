@@ -1,0 +1,66 @@
+{
+  "common": {
+    "language": "Idioma",
+    "save": "Guardar",
+    "saving": "Guardando..."
+  },
+  "settings": {
+    "settings": "Configuración",
+    "accountSettings": "Configuración de la cuenta",
+    "accessibility": "Accesibilidad",
+    "designSettings": "Configuración de diseño",
+    "notifications": "Notificaciones"
+  },
+  "profile": {
+    "memberSince": "Miembro desde {{year}}"
+  },
+  "home": {
+    "notLoggedIn": "No has iniciado sesión",
+    "recents": "Recientes",
+    "yourFiles": "Tus archivos",
+    "authorUnknown": "autor desconocido",
+    "dateUnknown": "fecha desconocida",
+    "noRecentFiles": "No se encontraron archivos recientes.",
+    "endOfRecents": "Fin de recientes",
+    "noOwnedFiles": "No pudimos encontrar ninguno de tus archivos.",
+    "endOfYourFiles": "Fin de tus archivos"
+  },
+  "create": {
+    "title": "Crear un archivo nuevo",
+    "uploadFile": "Subir archivo",
+    "pasteToTextBox": "Pegar en el cuadro de texto",
+    "creatorInformation": "Información del creador",
+    "uploaderRecommendations": "Recomendaciones del cargador",
+    "username": "Usuario",
+    "enterUsername": "Ingresa tu usuario",
+    "fileTitle": "Título del archivo",
+    "enterFileTitle": "Ingresa el título del archivo",
+    "description": "Descripción",
+    "enterDescription": "Ingresa la descripción del archivo",
+    "author": "Autor del archivo",
+    "enterAuthor": "Ingresa el autor del archivo",
+    "publishDate": "Fecha de publicación",
+    "enterPublishDate": "Ingresa la fecha",
+    "submit": "Enviar",
+    "font": "Fuente",
+    "fontSize": "Tamaño de fuente",
+    "highlight": "Resaltado",
+    "fontColor": "Color de letra",
+    "backgroundColor": "Color de fondo",
+    "readingSpeed": "Velocidad de lectura",
+    "none": "Ninguno",
+    "word": "Palabra",
+    "sentence": "Oración",
+    "white": "Blanco",
+    "black": "Negro",
+    "red": "Rojo",
+    "slow": "Lento",
+    "medium": "Medio",
+    "fast": "Rápido"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "signup": "Crear cuenta",
+    "loginToChangeLanguage": "Inicia sesión para cambiar el idioma."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "common": {
+    "language": "Language",
+    "save": "Save",
+    "saving": "Saving..."
+  },
+  "settings": {
+    "settings": "Settings",
+    "accountSettings": "Account Settings",
+    "accessibility": "Accessibility",
+    "designSettings": "Design Settings",
+    "notifications": "Notifications"
+  },
+  "profile": {
+    "memberSince": "Member since {{year}}"
+  },
+  "home": {
+    "notLoggedIn": "You're not logged in",
+    "recents": "Recents",
+    "yourFiles": "Your Files",
+    "authorUnknown": "author unknown",
+    "dateUnknown": "date unknown",
+    "noRecentFiles": "No recent files found.",
+    "endOfRecents": "End of recents",
+    "noOwnedFiles": "We can't find any of your files.",
+    "endOfYourFiles": "End of your files"
+  },
+  "create": {
+    "title": "Create a new file",
+    "uploadFile": "Upload File",
+    "pasteToTextBox": "Paste to text box",
+    "creatorInformation": "Creator Information",
+    "uploaderRecommendations": "Uploader Recommendations",
+    "username": "Username",
+    "enterUsername": "Enter your username",
+    "fileTitle": "File Title",
+    "enterFileTitle": "Enter file title",
+    "description": "Description",
+    "enterDescription": "Enter file description",
+    "author": "Author of the file",
+    "enterAuthor": "Enter file author",
+    "publishDate": "Publish Date",
+    "enterPublishDate": "Enter the date",
+    "submit": "Submit",
+    "font": "Font",
+    "fontSize": "Font Size",
+    "highlight": "Highlight",
+    "fontColor": "Font Color",
+    "backgroundColor": "Background Color",
+    "readingSpeed": "Reading Speed",
+    "none": "None",
+    "word": "Word",
+    "sentence": "Sentence",
+    "white": "White",
+    "black": "Black",
+    "red": "Red",
+    "slow": "Slow",
+    "medium": "Medium",
+    "fast": "Fast"
+  },
+  "auth": {
+    "login": "Log in",
+    "signup": "Sign up",
+    "loginToChangeLanguage": "Log in to change language."
+  }
+}
