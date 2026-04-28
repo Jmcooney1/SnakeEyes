@@ -68,6 +68,20 @@ app.get("/api/user-settings", async (req, res) => {
   }
 });
 
+// GET /api/user-settings/:ownerID — Get a user's settings
+app.get("/api/user-settings/:ownerID", async (req, res) => {
+  try {
+    const ownerID = Number(req.params.ownerID);
+    if (!Number.isFinite(ownerID)) return res.status(400).json({ error: "Invalid ownerID" });
+
+    const settings = await prisma.userSetting.findUnique({ where: { ownerID } });
+    res.json(settings);
+  } catch (error) {
+    console.error("Error fetching user settings by ownerID:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // GET /api/file-settings — List all file settings
 app.get("/api/file-settings", async (req, res) => {
   try {
@@ -165,6 +179,25 @@ app.post("/api/file-settings", async (req, res) => {
     res.json(newFileSetting);
   } catch (error) {
     console.error("Error creating file setting:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// PUT /api/user-settings/:ownerID — Create/update a user's settings
+app.put("/api/user-settings/:ownerID", async (req, res) => {
+  try {
+    const ownerID = Number(req.params.ownerID);
+    if (!Number.isFinite(ownerID)) return res.status(400).json({ error: "Invalid ownerID" });
+
+    const data = req.body ?? {};
+    const settings = await prisma.userSetting.upsert({
+      where: { ownerID },
+      create: { ownerID, ...data },
+      update: { ...data },
+    });
+    res.json(settings);
+  } catch (error) {
+    console.error("Error upserting user settings:", error);
     res.status(500).json({ error: error.message });
   }
 });

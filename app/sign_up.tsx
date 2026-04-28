@@ -48,7 +48,7 @@ export default function LogIn() {
              <View style={styles.ButtonContainer}>
                 <TouchableOpacity
                     style={styles.Button}
-                    onPress = {() => {router.push('/create_account')}}>
+                    onPress = {() => {router.push('/Create_Account')}}>
                     <Text style={styles.ButtonText}>Don't have an account? Sign up</Text>
                 </TouchableOpacity>
             </View>
